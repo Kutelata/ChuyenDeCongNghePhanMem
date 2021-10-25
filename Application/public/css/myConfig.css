@@ -1,0 +1,35 @@
+.ps-section__title {
+    text-align: center;
+    margin: 0 50%;
+    transform: translateX(-50%);
+}
+
+.ps-owl-root .ps-owl-actions {
+    margin-top: 0px;
+    text-align: center;
+}
+
+.ps-section__action {
+    line-height: 0px;
+}
+
+@media (max-width: 768px) {
+    .tp-caption i {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 425px) {
+    .tp-caption i {
+        font-size: 6px;
+    }
+}
+
+@media (max-width: 375px) {
+    .ps-banner .ps-banner__description p {
+        font-size: 10px;
+    }
+    .tp-caption i {
+        font-size: 5px;
+    }
+}

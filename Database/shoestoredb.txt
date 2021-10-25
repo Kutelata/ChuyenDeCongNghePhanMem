@@ -1,0 +1,91 @@
+create database ShoeStoreDB;
+
+use ShoeStoreDB;
+
+CREATE TABLE `User`(
+	userId int AUTO_INCREMENT NOT NULL primary key,
+	name varchar(50),
+	phone varchar(50),
+	gender bit,
+	email varchar(50),
+	password varchar(50),
+	birthday datetime
+);
+
+create table `Order`(
+	orderId int AUTO_INCREMENT primary key,
+	total float,
+	orderDate datetime,
+	userId int,
+    	FOREIGN KEY(userID) references `User`(userId)
+);
+
+create table Brand
+(
+	brandId int AUTO_INCREMENT primary key,
+	name varchar(50),
+	description varchar(50)
+);
+
+create table Category
+(
+	categoryId int AUTO_INCREMENT primary key,
+	name varchar(50),
+	description varchar(50)
+);
+
+create table Size
+(
+	sizeId int AUTO_INCREMENT primary key,
+	name varchar(50)
+);
+
+create table Color
+(
+	colorId int AUTO_INCREMENT primary key,
+	name varchar(50)
+);
+
+create table Product
+(
+	productId int AUTO_INCREMENT primary key,
+	name varchar(50),
+	price float,
+	description varchar(50),
+	categoryId int,
+  	brandId int,
+    	FOREIGN KEY(brandId) REFERENCES Brand(brandId),
+    	FOREIGN KEY(categoryId) REFERENCES Category(categoryId)
+);
+
+create table ProductSize
+(
+	productId int,
+	sizeId int,
+	quantity int,
+    	FOREIGN KEY(productId) REFERENCES Product(productId),
+    	FOREIGN KEY(sizeId) REFERENCES Size(sizeId),
+    	CONSTRAINT PK_ProductSize PRIMARY KEY (productId,sizeId)
+);
+
+create table ProductColor
+(
+	productId int,
+	colorId int,
+	quantity int,
+    	FOREIGN KEY(productId) REFERENCES Product(productId),
+    	FOREIGN KEY(colorId) REFERENCES Color(colorId),
+	CONSTRAINT PK_ProductColor PRIMARY KEY (productId,colorId)
+);
+
+create table OrderDetail
+(
+	orderId int,
+	productId int,
+	productName varchar(50),
+	productPrice float,
+	quantity int,
+	CONSTRAINT PK_OrderDetail PRIMARY KEY (orderId,productId),
+    	FOREIGN KEY(productId) REFERENCES Product(productId),
+    	FOREIGN KEY(orderId) references `Order`(orderId)
+);
