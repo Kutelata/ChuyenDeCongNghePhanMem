@@ -90,8 +90,7 @@
             menu.find('.menu').addClass('menu--mobile');
             menu.prependTo('.header--sidebar');
             $('.ps-sticky').addClass('desktop');
-        }
-        else {
+        } else {
             $('.menu').find('.sub-menu').show();
             header.removeClass('header--mobile');
             menu.prependTo('.navigation__column.center');
@@ -104,8 +103,7 @@
         /*logo*/
         if (windowWidth < 480) {
             $('.ps-search--header').prependTo('.header--sidebar');
-        }
-        else {
+        } else {
             $('.ps-search--header').insertBefore('.ps-cart');
         }
     }
@@ -291,44 +289,44 @@
                 styles: [{
                     "featureType": "administrative",
                     "elementType": "all",
-                    "stylers": [{"visibility": "on"}, {"lightness": 33}]
+                    "stylers": [{ "visibility": "on" }, { "lightness": 33 }]
                 }, {
                     "featureType": "landscape",
                     "elementType": "all",
-                    "stylers": [{"color": "#f2e5d4"}]
+                    "stylers": [{ "color": "#f2e5d4" }]
                 }, {
                     "featureType": "poi.park",
                     "elementType": "geometry",
-                    "stylers": [{"color": "#c5dac6"}]
+                    "stylers": [{ "color": "#c5dac6" }]
                 }, {
                     "featureType": "poi.park",
                     "elementType": "labels",
-                    "stylers": [{"visibility": "on"}, {"lightness": 20}]
+                    "stylers": [{ "visibility": "on" }, { "lightness": 20 }]
                 }, {
                     "featureType": "road",
                     "elementType": "all",
-                    "stylers": [{"lightness": 20}]
+                    "stylers": [{ "lightness": 20 }]
                 }, {
                     "featureType": "road.highway",
                     "elementType": "geometry",
-                    "stylers": [{"color": "#c5c6c6"}]
+                    "stylers": [{ "color": "#c5c6c6" }]
                 }, {
                     "featureType": "road.arterial",
                     "elementType": "geometry",
-                    "stylers": [{"color": "#e4d7c6"}]
+                    "stylers": [{ "color": "#e4d7c6" }]
                 }, {
                     "featureType": "road.local",
                     "elementType": "geometry",
-                    "stylers": [{"color": "#fbfaf7"}]
+                    "stylers": [{ "color": "#fbfaf7" }]
                 }, {
                     "featureType": "water",
                     "elementType": "all",
-                    "stylers": [{"visibility": "on"}, {"color": "#acbcc9"}]
+                    "stylers": [{ "visibility": "on" }, { "color": "#acbcc9" }]
                 }]
             }).marker(function(map) {
                 return {
                     position: map.getCenter(),
-                    icon: 'images/marker.png',
+                    icon: 'resources/images/marker.png',
                     animation: google.maps.Animation.BOUNCE
                 };
             }).infowindow({
@@ -340,8 +338,7 @@
                     infowindow.open(map, marker);
                 });
             });
-        }
-        else {
+        } else {
             console.log("Notice: Don't have map on this page!!!");
         }
     }
@@ -393,8 +390,7 @@
                     });
                 }, 0);
 
-            }
-            else {
+            } else {
                 return false;
             }
         });
@@ -486,8 +482,7 @@
             focusOnSelect: true,
             asNavFor: '.ps-product__image',
             vertical: true,
-            responsive: [
-                {
+            responsive: [{
                     breakpoint: 992,
                     settings: {
                         arrows: false,
@@ -558,8 +553,7 @@
             var values = el.slider("option", "values");
             min.text('$' + values[0]);
             max.text('$' + values[1]);
-        }
-        else {
+        } else {
             return false;
         }
     }
@@ -567,8 +561,7 @@
     function revolution() {
         if ($("#home-banner").revolution == undefined) {
             revslider_showDoubleJqueryError("#rev_slider_1059_1");
-        }
-        else {
+        } else {
             $("#home-banner").show().revolution({
                 sliderType: "standard",
                 jsFileLocation: "plugins/revolution/js/",
@@ -661,9 +654,7 @@
                     if (scrollTop >= sidebarEnd) {
                         widget.css('top', sidebarEnd - sidebarTop - 120);
                     }
-                }
-
-                else {
+                } else {
                     widget.css('top', '0');
                 }
             }
