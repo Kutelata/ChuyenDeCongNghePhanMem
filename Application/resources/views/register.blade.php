@@ -13,11 +13,21 @@
 @endsection
 
 @section('main')
-<section class="fxt-template-animation fxt-template-layout6" data-bg-image="{{asset('resources/auth/img/figure/bg6-r.jpg')}}">
+<section class="fxt-template-animation fxt-template-layout6" data-bg-image="{{asset('resources/auth/img/figure/bg6-l.jpg')}}">
     <div class="fxt-content">
         <div class="fxt-form">
             <h2>Register for new account</h2>
-            <form method="POST">
+            @if($errors->all())
+                <div class="alert alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    @foreach($errors->all() as $error)
+                    <p>{{$error}}</p>
+                    @endforeach
+                </div>
+                
+            @endif
+            <form action="" method="POST">
+                @csrf
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-3">
                         <input type="text" class="form-control" name="name" placeholder="Name" required="required">
