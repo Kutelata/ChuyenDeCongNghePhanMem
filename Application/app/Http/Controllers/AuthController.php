@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Validate\Validate;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -14,17 +16,10 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function post_register(Request $request){
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'required'
-        ],[
-            'name.required' => 'Họ tên không để trống',
-            'email.required' => 'Email không để trống',
-            'password.required' => 'Mật khẩu không để trống',
-        ]);
-        $request->merge(['password' => bcrypt($request->password)]);
+    public function post_register(LoginRequest $request)
+    {
+        // var_dump($request);die;
+        $validate = $request->validated();
         dd($request->all());
     }
 }

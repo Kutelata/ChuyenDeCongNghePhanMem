@@ -30,7 +30,7 @@
                 @csrf
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-3">
-                        <input type="text" class="form-control" name="name" placeholder="Name" required="required">
+                        <input type="text" class="form-control" name="name" placeholder="Name" >
                     </div>
                 </div>
                 <div class="form-group">

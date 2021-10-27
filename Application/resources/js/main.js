@@ -348,51 +348,7 @@
             shoe = $('.ps-shoe');
         shoe.on('mouseenter', function() {
             var variants = $(this).find('.ps-shoe__variant');
-            if (variants.children().length === 0) {
-                setTimeout(function() {
-                    $.ajax({
-                        url: "../js/shoe-variants.js",
-                        success: function(data) {
-                            var images = JSON.parse(data);
-                            for (var i in images) {
-                                $('<img src=' + images[i] + '>').appendTo(variants);
-                            }
-                            variants.owlCarousel({
-                                margin: 20,
-                                autoplay: false,
-                                loop: false,
-                                nav: true,
-                                dots: false,
-                                mouseDrag: true,
-                                touchDrag: true,
-                                navSpeed: 1000,
-                                items: 4,
-                                navText: ["<i class='ps-icon-back'></i>", "<i class='ps-icon-next'></i>"],
-                                responsive: {
-                                    0: {
-                                        items: 3
-                                    },
-                                    480: {
-                                        items: 3
-                                    },
-                                    768: {
-                                        items: 3
-                                    },
-                                    992: {
-                                        items: 4
-                                    },
-                                    1200: {
-                                        items: 4
-                                    }
-                                }
-                            });
-                        }
-                    });
-                }, 0);
-
-            } else {
-                return false;
-            }
+            return false;
         });
     }
 
