@@ -6,18 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Model
+class Product extends Model
 {
     use Notifiable;
     public $timestamps = false;
-    protected $table = 'user';
+    protected $table = 'product';
     protected $fillable = [
-        'userId',
+        'productId',
         'name',
-        'phone',
-        'gender',
-        'email',
-        'password',
-        'birthday',
+        'price',
+        'description',
+        'image',
+        'categoryId',
+        'brandId',
     ];
 }
