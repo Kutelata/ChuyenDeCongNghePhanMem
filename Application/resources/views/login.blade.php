@@ -13,20 +13,35 @@
 @endsection
 
 @section('main')
-<section class="fxt-template-animation fxt-template-layout6" data-bg-image="{{asset('resources/auth/img/figure/bg6-l.jpg')}}">
+<section class="fxt-template-animation fxt-template-layout6"
+    data-bg-image="{{asset('resources/auth/img/figure/bg6-l.jpg')}}">
     <div class="fxt-content">
         <div class="fxt-form">
             <h2>Log in to continue..</h2>
-            <form method="POST">
+            @if(Session::has('success'))
+            <div class="alert alert-success">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <p>{{Session::get('success')}}</p>
+            </div>
+            @endif
+            @if(Session::has('error'))
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <p>{{Session::get('error')}}</p>
+            </div>
+            @endif
+            <form method="POST" action="{{ route('login') }}">
+                @csrf
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-3">
-                        <input type="email" class="form-control" name="email" placeholder="Email Address"
-                            required="required">
+                        <input type="email" id="email" class="form-control" name="email" placeholder="Email Address"
+                            required autofocus>
+
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="fxt-transformY-50 fxt-transition-delay-4">
-                        <input type="password" class="form-control" name="password" placeholder="Password"
+                        <input type="password" id="password" class="form-control" name="password" placeholder="Password"
                             required="required">
                     </div>
                 </div>

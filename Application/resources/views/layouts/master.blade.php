@@ -53,7 +53,14 @@
                     </div>
 
                     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-                        <div class="header__actions"><a href="#">Login &amp; Regiser</a>
+
+                        <div class="header__actions"><a href="#">
+                                @if(Session::has('user'))
+                                    {{Session::get('user')->name}}
+                                @else
+                                    Login &amp; Regiser
+                                @endif
+                            </a>
 
                             <div class="btn-group ps-dropdown"><a aria-expanded="false" aria-haspopup="true"
                                     class="dropdown-toggle" data-toggle="dropdown" href="#">USD<i
@@ -176,8 +183,7 @@
                             </div>
                         </li>
                         <li class="menu-item"><a href="#">Women</a></li>
-                        <li class="menu-item"><a href="#">Kids</a></li>
-                        <li class="menu-item menu-item-has-children dropdown"><a href="#">News</a>
+                        <!-- <li class="menu-item menu-item-has-children dropdown"><a href="#">News</a>
                             <ul class="sub-menu">
                                 <li class="menu-item menu-item-has-children dropdown"><a
                                         href="blog-grid.html">Blog-grid</a>
@@ -188,7 +194,7 @@
                                 </li>
                                 <li class="menu-item"><a href="blog-list.html">Blog List</a></li>
                             </ul>
-                        </li>
+                        </li> -->
                         <li class="menu-item">
                             <a href="contact-us.html">Contact</a>
                         </li>
