@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 class Product extends Model
 {
     use Notifiable;
+
     public $timestamps = false;
     protected $table = 'product';
     protected $fillable = [
@@ -20,4 +21,14 @@ class Product extends Model
         'categoryId',
         'brandId',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class, 'categoryId', 'categoryId');
+    }
+
+    public function brand()
+    {
+        return $this->belongsTo(Brand::class, 'brandId', 'brandId');
+    }
 }

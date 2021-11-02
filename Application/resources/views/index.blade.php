@@ -100,13 +100,13 @@
                 data-owl-duration="1000" data-owl-gap="30" data-owl-item="4" data-owl-item-lg="4" data-owl-item-md="3"
                 data-owl-item-sm="2" data-owl-item-xs="1" data-owl-loop="true" data-owl-mousedrag="on"
                 data-owl-nav="false" data-owl-speed="5000">
-                @foreach($product as $p)
+                @foreach($newProduct as $p)
                 <div class="ps-shoes--carousel">
                     <div class="ps-shoe">
                         <div class="ps-shoe__thumbnail">
                             <div class="ps-badge"><span>New</span></div>
                             <a class="ps-shoe__favorite" href="#">
-                                <i class="ps-icon-heart"></i></a><img src="resources/images/shoe/{{$p->image}}" alt="">
+                                <i class="ps-icon-heart"></i></a><img src="{{asset('resources/images/shoe/')}}/{{$p->image}}" alt="">
                             <a class="ps-shoe__overlay" href="product-detail.html">
                             </a>
                         </div>
@@ -114,8 +114,10 @@
                         <div class="ps-shoe__content">
                             <div class="ps-shoe__detail"><a class="ps-shoe__name" href="product-detai.html">{{$p->name}}</a>
 
-                                <p class="ps-shoe__categories"><a href="#">Men shoes</a>,<a href="#">
-                                        Nike</a>,<a href="#"> Jordan</a></p>
+                                <p class="ps-shoe__categories">
+                                    <a href="#">{{$p->category->name}}</a>,
+                                    <a href="#">{{$p->brand->name}}</a>
+                                </p>
                                 <span class="ps-shoe__price"> {{$p->price}} &#8363;</span>
                             </div>
                         </div>

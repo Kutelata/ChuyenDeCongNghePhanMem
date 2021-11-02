@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 14, 2021 at 11:54 AM
+-- Generation Time: Nov 02, 2021 at 02:50 AM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -33,6 +33,15 @@ CREATE TABLE `brand` (
   `description` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `brand`
+--
+
+INSERT INTO `brand` (`brandId`, `name`, `description`) VALUES
+(1, 'Adidas', ''),
+(2, 'Nike', ''),
+(3, 'Vans', '');
+
 -- --------------------------------------------------------
 
 --
@@ -45,6 +54,15 @@ CREATE TABLE `category` (
   `description` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`categoryId`, `name`, `description`) VALUES
+(1, 'Sneaker', NULL),
+(2, 'Classic', NULL),
+(3, 'Lifestyle', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -53,8 +71,17 @@ CREATE TABLE `category` (
 
 CREATE TABLE `color` (
   `colorId` int(11) NOT NULL,
-  `name` varchar(50) DEFAULT NULL
+  `name` varchar(50) DEFAULT NULL,
+  `code` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `color`
+--
+
+INSERT INTO `color` (`colorId`, `name`, `code`) VALUES
+(1, 'White', '#FFFFFF'),
+(2, 'Black', '#000000');
 
 -- --------------------------------------------------------
 
@@ -94,9 +121,28 @@ CREATE TABLE `product` (
   `name` varchar(50) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
+  `image` varchar(100) DEFAULT NULL,
+  `createdAt` datetime DEFAULT NULL,
   `categoryId` int(11) DEFAULT NULL,
   `brandId` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `product`
+--
+
+INSERT INTO `product` (`productId`, `name`, `price`, `description`, `image`, `createdAt`, `categoryId`, `brandId`) VALUES
+(1, 'Air Force One', 2600000, NULL, 'air-force-1-07/air-force-1-07.jpg', '2021-11-01 00:00:00', 3, 2),
+(2, 'Vans Old Skool', 1900000, NULL, 'vans-old-skool/vans-old-skool.jpg', '2021-11-01 00:00:00', 1, 3),
+(3, 'Forum', 1500000, NULL, 'forum/forum.jpg', '2021-11-01 00:00:00', 1, 1),
+(4, 'Stan Smith', 2500000, NULL, 'stan_smith/stan_smith.jpg', '2021-11-01 00:00:00', 3, 1),
+(5, 'Nike Dunk Low 365', 3000000, NULL, 'nike-dunk-low-365/nike-dunk-low-365.jpg', '2021-11-01 00:00:00', 1, 2),
+(6, 'Ultraboost 21 Tokyo', 3500000, NULL, 'ultraboost_21_tokyo/ultraboost_21_tokyo.jpg\r\n', '2021-11-02 02:38:07', 3, 1),
+(7, 'Vans Authentic Leather Tapioca', 1100000, NULL, 'vans-authentic-leather-tapioca/vans-authentic-leather-tapioca.jpg', '2021-11-02 02:40:20', 3, 3),
+(8, 'Vans Pig Authentic', 2200000, NULL, 'vans-pig-authentic/vans-pig-authentic.jpg', '2021-11-02 02:40:20', 3, 3),
+(9, 'Vans-Sk8-Hi-Classic', 1800000, NULL, 'vans-sk8-hi-classic/vans-sk8-hi-classic.jpg', '2021-11-02 02:45:33', 3, 3),
+(10, 'Vans Vault Authentic', 2100000, NULL, 'vans-vault-authentic/vans-vault-authentic.jpg', '2021-11-02 02:46:27', 1, 3),
+(11, 'Zx 2k Boost', 3700000, NULL, 'zx_2k_boost/zx_2k_boost.jpg', '2021-11-02 02:48:05', 3, 1);
 
 -- --------------------------------------------------------
 
@@ -130,8 +176,25 @@ CREATE TABLE `productsize` (
 
 CREATE TABLE `size` (
   `sizeId` int(11) NOT NULL,
-  `name` varchar(50) DEFAULT NULL
+  `number` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `size`
+--
+
+INSERT INTO `size` (`sizeId`, `number`) VALUES
+(1, 30),
+(2, 31),
+(3, 32),
+(4, 33),
+(5, 34),
+(6, 35),
+(7, 36),
+(8, 37),
+(9, 38),
+(10, 39),
+(11, 40);
 
 -- --------------------------------------------------------
 
@@ -143,11 +206,20 @@ CREATE TABLE `user` (
   `userId` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `phone` varchar(50) DEFAULT NULL,
-  `gender` bit(1) DEFAULT NULL,
+  `gender` tinyint(1) DEFAULT NULL,
   `email` varchar(50) DEFAULT NULL,
   `password` varchar(50) DEFAULT NULL,
   `birthday` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`userId`, `name`, `phone`, `gender`, `email`, `password`, `birthday`) VALUES
+(1, 'long', '0832536199', 1, 'long@gmail.com', '1234', '2000-11-23 18:50:50'),
+(2, 'thanh', '0822536189', 1, 'thanh@gmail.com', '1234', '2000-11-22 18:50:50'),
+(3, 'hoang anh', '0836456199', 1, 'hoanganh@gmail.com', '1234', '2000-10-10 18:15:50');
 
 --
 -- Indexes for dumped tables
@@ -227,19 +299,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `brandId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `brandId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `categoryId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
-  MODIFY `colorId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `colorId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -251,19 +323,19 @@ ALTER TABLE `order`
 -- AUTO_INCREMENT for table `product`
 --
 ALTER TABLE `product`
-  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `productId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `size`
 --
 ALTER TABLE `size`
-  MODIFY `sizeId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `sizeId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

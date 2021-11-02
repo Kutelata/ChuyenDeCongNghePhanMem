@@ -22,17 +22,16 @@ class AuthController extends Controller
             'password'=>'required|string',
         ]);
         if($validator->fails()){
-            return redirect()->back()->with('error','Dang nhap that bai vui long thu lai!');
+            return redirect()->back()->with('error','Login fail please try again!');
     
         }
         $user = User::where("email",$request->email)->where("password",$request->password)->first();
         $request->session()->put('user',$user);
         if($user != null){
-            return redirect()->route('index')->with('success','Dang nhap thanh cong!');
+            return redirect()->route('index')->with('success','Login success!');
            
        }
-      
-       return redirect()->back();
+       return redirect()->back()->with('error','Email or password does not exist!');
     }
 
     public function register()
@@ -54,9 +53,8 @@ class AuthController extends Controller
         ]);
 
         if ($result) {
-            return redirect()->route('login')->with('success', 'Đăng ký thành công');
+            return redirect()->route('login')->with('success', 'Register success!');
         }
-        return redirect()->route('register')->with('error', 'Đăng ký thất bại');
+        return redirect()->route('register')->with('error', 'Register Fail!');
     }
 }
-?>

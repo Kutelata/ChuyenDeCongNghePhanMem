@@ -42,12 +42,12 @@
                     @csrf
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="text" class="form-control" name="name" placeholder="Name" required="required">
+                            <input type="text" class="form-control" name="name" placeholder="Name" >
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="text" class="form-control" name="phone" placeholder="Phone" required="required">
+                            <input type="text" class="form-control" name="phone" placeholder="Phone" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -58,17 +58,17 @@
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" required="required">
+                            <input type="email" class="form-control" name="email" placeholder="Email Address" >
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+                            <input type="password" class="form-control" name="password" placeholder="Password" >
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="date" class="form-control" name="birthday" placeholder="Birthday" required="required">
+                            <input type="date" class="form-control" name="birthday" placeholder="Birthday" >
                         </div>
                     </div>
                     <div class="form-group">

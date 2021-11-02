@@ -7,7 +7,8 @@ use App\Models\Product;
 class HomeController extends Controller
 {
     public function index(){
-        $product = Product::all();
-        return view('index',compact('product'));
+        $newProduct = Product::all()->sortBy('createdAt')->take(5);
+        $saleProduct = Product::all()->sortBy('createdAt')->take(5);
+        return view('index',compact('newProduct','saleProduct'));
     }
 }
