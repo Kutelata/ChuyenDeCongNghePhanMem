@@ -23,6 +23,43 @@
     max-height: auto;
 }
 
+.ps-shoe .ps-shoe__price {
+    position: static;
+    top: 0px;
+    right: 0px;
+}
+
+.ps-products-wrap .ps-sidebar {
+    position: static;
+}
+
+.ps-products-wrap .ps-products {
+    position: static;
+}
+
+.mega-menu{
+    left: auto;
+    width: auto;
+}
+
+.mega-menu .mega-wrap{
+}
+
+.mega-menu .mega-column{
+    width: 100%;
+}
+@media (max-width: 1199px){
+    .ps-products-wrap .ps-sidebar{
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .ps-widget--sidebar{
+        float: left;
+        padding-left: 20px;
+    }
+}
+
 @media (max-width: 768px) {
     .tp-caption i {
         font-size: 11px;

@@ -53,54 +53,24 @@
                     </div>
 
                     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
-
                         <div class="header__actions">
+
                             <div class="btn-group ps-dropdown"><a aria-expanded="false" aria-haspopup="true"
-                                                                  class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    class="dropdown-toggle" data-toggle="dropdown" href="#">
                                     @if(Session::has('user'))
-                                        {{Session::get('user')->name}}
-                                    @else
-                                        Login &amp; Regiser
-                                    @endif<i
-                                        class="fa fa-angle-down"></i></a></a>
+                                    {{Session::get('user')->name}}
+
+                                    <i class="fa fa-angle-down"></i></a></a>
 
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">Change Profile</a></li>
-                                    <li><a href="#">Log out</a></li>
+                                    <li><a href="{{route('selectid')}}">Change Password</a></li>
+                                    <li><a href="{{route('logout')}}">Log out</a></li>
                                 </ul>
                             </div>
+                            @else
 
-{{--                            <div class="btn-group ps-dropdown"><a aria-expanded="false" aria-haspopup="true"--}}
-{{--                                    class="dropdown-toggle" data-toggle="dropdown" href="#">USD<i--}}
-{{--                                        class="fa fa-angle-down"></i></a></a>--}}
-
-{{--                                <ul class="dropdown-menu">--}}
-{{--                                    <li>--}}
-{{--                                        <a href="#"><img alt="" src="{{asset('resources/images/flag/usa.svg')}}" />--}}
-{{--                                            USD</a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="#"><img alt=""--}}
-{{--                                                src="{{asset('resources/images/flag/singapore.svg')}}" /> SGD</a>--}}
-{{--                                    </li>--}}
-{{--                                    <li>--}}
-{{--                                        <a href="#"><img alt="" src="{{asset('resources/images/flag/japan.svg')}}" />--}}
-{{--                                            JPN</a>--}}
-{{--                                    </li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="btn-group ps-dropdown"><a aria-expanded="false" aria-haspopup="true"--}}
-{{--                                    class="dropdown-toggle" data-toggle="dropdown" href="#">Language<i--}}
-{{--                                        class="fa fa-angle-down"></i></a></a>--}}
-
-{{--                                <ul class="dropdown-menu">--}}
-{{--                                    <li><a href="#">English</a></li>--}}
-{{--                                    <li><a href="#">Japanese</a></li>--}}
-{{--                                    <li><a href="#">Chinese</a></li>--}}
-{{--                                </ul>--}}
-{{--                            </div>--}}
-
+                            <a href="{{route('login')}}"> Login &amp; Register</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -121,135 +91,38 @@
                         <li class="menu-item">
                             <a href="{{route('index')}}">Home</a>
                         </li>
+                        @foreach($category as $c)
+                        @if($c->description == 'root')
                         <li class="menu-item">
-                            <a href="{{route('product_list')}}">All Shoes</a>
+                            <a href="{{route('product_list')}}">{{$c->name}}</a>
                         </li>
-                        <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">Lifestyle</a>
+                        @else
+                        <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">{{$c->name}}</a>
                             <div class="mega-menu">
                                 <div class="mega-wrap">
                                     <div class="mega-column">
-                                        <ul class="mega-item mega-features">
-                                            <li><a href="product-listing.html">NEW RELEASES</a></li>
-                                            <li><a href="product-listing.html">FEATURES SHOES</a></li>
-                                            <li><a href="product-listing.html">BEST SELLERS</a></li>
-                                            <li><a href="product-listing.html">NOW TRENDING</a></li>
-                                            <li><a href="product-listing.html">SUMMER ESSENTIALS</a></li>
-                                            <li><a href="product-listing.html">MOTHER&#39;S DAY COLLECTION</a></li>
-                                            <li><a href="product-listing.html">FAN GEAR</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">Shoes</h4>
+                                        <h4 class="mega-heading">Brand</h4>
 
                                         <ul class="mega-item">
-                                            <li><a href="product-listing.html">All Shoes</a></li>
-                                            <li><a href="product-listing.html">Running</a></li>
-                                            <li><a href="product-listing.html">Training &amp; Gym</a></li>
-                                            <li><a href="product-listing.html">Basketball</a></li>
-                                            <li><a href="product-listing.html">Football</a></li>
-                                            <li><a href="product-listing.html">Soccer</a></li>
-                                            <li><a href="product-listing.html">Baseball</a></li>
+                                            @foreach($brand as $b)
+                                            <li><a href="product-listing.html">{{$b->name}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
-
                                     <div class="mega-column">
-                                        <h4 class="mega-heading">Accessories</h4>
+                                        <h4 class="mega-heading">Color</h4>
 
                                         <ul class="mega-item">
-                                            <li><a href="product-listing.html">Compression &amp; Nike Pro</a></li>
-                                            <li><a href="product-listing.html">Tops &amp; T-Shirts</a></li>
-                                            <li><a href="product-listing.html">Polos</a></li>
-                                            <li><a href="product-listing.html">Hoodies &amp; Sweatshirts</a></li>
-                                            <li><a href="product-listing.html">Jackets &amp; Vests</a></li>
-                                            <li><a href="product-listing.html">Pants &amp; Tights</a></li>
-                                            <li><a href="product-listing.html">Shorts</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">BRAND</h4>
-
-                                        <ul class="mega-item">
-                                            <li><a href="product-listing.html">NIKE</a></li>
-                                            <li><a href="product-listing.html">Adidas</a></li>
-                                            <li><a href="product-listing.html">Dior</a></li>
-                                            <li><a href="product-listing.html">B&amp;G</a></li>
+                                            @foreach($color as $co)
+                                            <li><a href="product-listing.html">{{$co->name}}</a></li>
+                                            @endforeach
                                         </ul>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">Sneaker</a>
-                            <div class="mega-menu">
-                                <div class="mega-wrap">
-                                    <div class="mega-column">
-                                        <ul class="mega-item mega-features">
-                                            <li><a href="product-listing.html">NEW RELEASES</a></li>
-                                            <li><a href="product-listing.html">FEATURES SHOES</a></li>
-                                            <li><a href="product-listing.html">BEST SELLERS</a></li>
-                                            <li><a href="product-listing.html">NOW TRENDING</a></li>
-                                            <li><a href="product-listing.html">SUMMER ESSENTIALS</a></li>
-                                            <li><a href="product-listing.html">MOTHER&#39;S DAY COLLECTION</a></li>
-                                            <li><a href="product-listing.html">FAN GEAR</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">Shoes</h4>
-
-                                        <ul class="mega-item">
-                                            <li><a href="product-listing.html">All Shoes</a></li>
-                                            <li><a href="product-listing.html">Running</a></li>
-                                            <li><a href="product-listing.html">Training &amp; Gym</a></li>
-                                            <li><a href="product-listing.html">Basketball</a></li>
-                                            <li><a href="product-listing.html">Football</a></li>
-                                            <li><a href="product-listing.html">Soccer</a></li>
-                                            <li><a href="product-listing.html">Baseball</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">CLOTHING</h4>
-
-                                        <ul class="mega-item">
-                                            <li><a href="product-listing.html">Compression &amp; Nike Pro</a></li>
-                                            <li><a href="product-listing.html">Tops &amp; T-Shirts</a></li>
-                                            <li><a href="product-listing.html">Polos</a></li>
-                                            <li><a href="product-listing.html">Hoodies &amp; Sweatshirts</a></li>
-                                            <li><a href="product-listing.html">Jackets &amp; Vests</a></li>
-                                            <li><a href="product-listing.html">Pants &amp; Tights</a></li>
-                                            <li><a href="product-listing.html">Shorts</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">Accessories</h4>
-
-                                        <ul class="mega-item">
-                                            <li><a href="product-listing.html">Compression &amp; Nike Pro</a></li>
-                                            <li><a href="product-listing.html">Tops &amp; T-Shirts</a></li>
-                                            <li><a href="product-listing.html">Polos</a></li>
-                                            <li><a href="product-listing.html">Hoodies &amp; Sweatshirts</a></li>
-                                            <li><a href="product-listing.html">Jackets &amp; Vests</a></li>
-                                            <li><a href="product-listing.html">Pants &amp; Tights</a></li>
-                                            <li><a href="product-listing.html">Shorts</a></li>
-                                        </ul>
-                                    </div>
-
-                                    <div class="mega-column">
-                                        <h4 class="mega-heading">BRAND</h4>
-
-                                        <ul class="mega-item">
-                                            <li><a href="product-listing.html">NIKE</a></li>
-                                            <li><a href="product-listing.html">Adidas</a></li>
-                                            <li><a href="product-listing.html">Dior</a></li>
-                                            <li><a href="product-listing.html">B&amp;G</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+                        @endif
+                        @endforeach
                         <li class="menu-item">
                             <a href="contact-us.html">Contact</a>
                         </li>

@@ -18,6 +18,11 @@ Route::get('/login','AuthController@login')->name('login');
 Route::post('/login','AuthController@post_login')->name('post_login');
 Route::get('/register','AuthController@register')->name('register');
 Route::post('/register','AuthController@post_register')->name('post_register');
+Route::get('/logout','AuthController@signout')->name('logout');
+Route::get('/changeinformation','AuthController@selectID')->name('selectid');
+Route::post('/changeinformation','AuthController@changepassword')->name('updateinfo');
 
 Route::get('/product_list','ProductController@product_list')->name('product_list');
 Route::get('/product_detail','ProductController@product_detail')->name('product_detail');
+
+

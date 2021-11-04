@@ -20,6 +20,6 @@ class Category extends Model
 
     public function product()
     {
-        return $this->hasMany(Product, 'productId', 'categoryId');
+        return $this->hasMany(Product::class, 'productId', 'categoryId');
     }
 }

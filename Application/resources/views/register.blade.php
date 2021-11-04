@@ -42,7 +42,7 @@
                     @csrf
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="text" class="form-control" name="name" placeholder="Name" >
+                            <input type="text" class="form-control" name="name" placeholder="Name" required="required" >
                         </div>
                     </div>
                     <div class="form-group">
@@ -58,12 +58,17 @@
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="email" class="form-control" name="email" placeholder="Email Address" >
+                            <input type="email" class="form-control" name="email" placeholder="Email Address" required="required" >
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="password" class="form-control" name="password" placeholder="Password" >
+                            <input type="password" class="form-control" name="password" placeholder="Password" required="required" >
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="fxt-transformY-50 fxt-transition-delay-3">
+                            <input type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"  required="required">
                         </div>
                     </div>
                     <div class="form-group">
