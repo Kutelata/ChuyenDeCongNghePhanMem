@@ -22,7 +22,7 @@ Route::get('/logout','AuthController@signout')->name('logout');
 Route::get('/changeinformation','AuthController@selectID')->name('selectid');
 Route::post('/changeinformation','AuthController@changepassword')->name('updateinfo');
 
-Route::get('/product_list','ProductController@product_list')->name('product_list');
+Route::get('/product_list/','ProductController@product_list')->name('product_list');
 Route::get('/product_detail','ProductController@product_detail')->name('product_detail');
 
 

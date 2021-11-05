@@ -54,22 +54,20 @@
 
                     <div class="col-lg-6 col-md-4 col-sm-6 col-xs-12 ">
                         <div class="header__actions">
-
+                            @if(Session::has('user'))
                             <div class="btn-group ps-dropdown"><a aria-expanded="false" aria-haspopup="true"
                                     class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                    @if(Session::has('user'))
                                     {{Session::get('user')->name}}
-
                                     <i class="fa fa-angle-down"></i></a></a>
-
                                 <ul class="dropdown-menu">
                                     <li><a href="{{route('selectid')}}">Change Password</a></li>
                                     <li><a href="{{route('logout')}}">Log out</a></li>
                                 </ul>
                             </div>
+                            
                             @else
-
                             <a href="{{route('login')}}"> Login &amp; Register</a>
+                            
                             @endif
                         </div>
                     </div>
@@ -97,7 +95,8 @@
                             <a href="{{route('product_list')}}">{{$c->name}}</a>
                         </li>
                         @else
-                        <li class="menu-item menu-item-has-children has-mega-menu"><a href="#">{{$c->name}}</a>
+                        <li class="menu-item menu-item-has-children has-mega-menu">
+                            <a href="{{route('product_list')}}?categoryId={{$c->categoryId}}">{{$c->name}}</a>
                             <div class="mega-menu">
                                 <div class="mega-wrap">
                                     <div class="mega-column">
@@ -105,7 +104,9 @@
 
                                         <ul class="mega-item">
                                             @foreach($brand as $b)
-                                            <li><a href="product-listing.html">{{$b->name}}</a></li>
+                                            <li><a
+                                                    href="{{route('product_list')}}?categoryId={{$c->categoryId}}&brandId={{$b->brandId}}">{{$b->name}}</a>
+                                            </li>
                                             @endforeach
                                         </ul>
                                     </div>
@@ -114,7 +115,9 @@
 
                                         <ul class="mega-item">
                                             @foreach($color as $co)
-                                            <li><a href="product-listing.html">{{$co->name}}</a></li>
+                                            <li><a
+                                                    href="{{route('product_list')}}?categoryId={{$c->categoryId}}&colorId={{$co->colorId}}">{{$co->name}}</a>
+                                            </li>
                                             @endforeach
                                         </ul>
                                     </div>

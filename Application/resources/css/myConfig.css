@@ -1,3 +1,7 @@
+.header__actions>a {
+    border-right: 1px solid #e5e5e5;
+}
+
 .ps-section__title {
     text-align: center;
     margin: 0 50%;
@@ -29,35 +33,13 @@
     right: 0px;
 }
 
-.ps-products-wrap .ps-sidebar {
-    position: static;
-}
-
-.ps-products-wrap .ps-products {
-    position: static;
-}
-
-.mega-menu{
+.mega-menu {
     left: auto;
     width: auto;
 }
 
-.mega-menu .mega-wrap{
-}
-
-.mega-menu .mega-column{
+.mega-menu .mega-column {
     width: 100%;
-}
-@media (max-width: 1199px){
-    .ps-products-wrap .ps-sidebar{
-        max-width: 100%;
-        width: 100%;
-    }
-
-    .ps-widget--sidebar{
-        float: left;
-        padding-left: 20px;
-    }
 }
 
 @media (max-width: 768px) {
