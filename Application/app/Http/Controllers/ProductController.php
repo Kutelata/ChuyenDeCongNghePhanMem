@@ -19,15 +19,27 @@ class ProductController extends Controller
         } else {
             if ($brandId != null) {
                 $product = Product::where('categoryId', '=', $categoryId)->where('brandId', '=', $brandId)->paginate(10);
-            }elseif ($colorId != null) {
+            } elseif ($colorId != null) {
                 $product = Product::where('categoryId', '=', $categoryId)->where('colorId', '=', $colorId)->paginate(10);
-            }else{
+            } else {
                 $product = Product::where('categoryId', '=', $categoryId)->paginate(10);
             }
         }
+        return view('product_list', compact('product'));
+    }
 
-        $size = Size::all();
-        return view('product_list',compact('product','size'));
+    public function searchProductByName(Request $request)
+    {
+        $productName = $request->productName;
+        if ($productName != null) {
+            $product = Product::where('name', 'LIKE', '%' . $productName . '%');
+            if ($product->count() > 0) {
+                $product = $product->paginate(10);
+            }
+        } else {
+            $product = Product::paginate(10);
+        }
+        return view('product_list', compact('product', 'productName'));
     }
 
     public function product_detail()

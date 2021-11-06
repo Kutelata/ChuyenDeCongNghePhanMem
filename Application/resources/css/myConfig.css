@@ -42,6 +42,12 @@
     width: 100%;
 }
 
+@media (max-width: 1199px){
+    .ps-products-wrap .ps-products{
+        overflow: hidden;
+    }
+}
+
 @media (max-width: 768px) {
     .tp-caption i {
         font-size: 11px;

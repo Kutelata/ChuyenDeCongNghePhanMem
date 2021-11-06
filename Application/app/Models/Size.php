@@ -11,7 +11,7 @@ class Size extends Model
     use Notifiable;
 
     public $timestamps = false;
-    protected $table = 'color';
+    protected $table = 'size';
     protected $fillable = [
         'sizeId',
         'number',

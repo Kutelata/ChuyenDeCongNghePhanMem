@@ -21,18 +21,20 @@
                 </div>
                 <div class="ps-pagination">
                     <ul class="pagination">
-                        @if($product->currentPage() > 1)
-                            <li><a href="{{route('product_list')}}?page={{$product->currentPage()-1}}"><i
-                                        class="fa fa-angle-left"></i></a></li>
-                        @endif
+                        @if($product->count() > 0)
+                            @if($product->currentPage() > 1)
+                                <li><a href="{{route('product_list')}}?page={{$product->currentPage()-1}}"><i
+                                            class="fa fa-angle-left"></i></a></li>
+                            @endif
 
-                        @for($i = 0 ; $i < $product->lastPage();$i++)
-                            <li><a href="{{route('product_list')}}?page={{$i+1}}">{{$i+1}}</a></li>
-                        @endfor
+                            @for($i = 0 ; $i < $product->lastPage();$i++)
+                                <li><a href="{{route('product_list')}}?page={{$i+1}}">{{$i+1}}</a></li>
+                            @endfor
 
-                        @if($product->currentPage() < $product->lastPage())
-                            <li><a href="{{route('product_list')}}?page={{$product->currentPage()+1}}"><i
-                                        class="fa fa-angle-right"></i></a></li>
+                            @if($product->currentPage() < $product->lastPage())
+                                <li><a href="{{route('product_list')}}?page={{$product->currentPage()+1}}"><i
+                                            class="fa fa-angle-right"></i></a></li>
+                            @endif
                         @endif
                     </ul>
                 </div>
@@ -107,13 +109,15 @@
             <aside class="ps-widget--sidebar ps-widget--filter">
                 <div class="ps-widget__header">
                     <h3>Price</h3>
+
                 </div>
                 <div class="ps-widget__content">
-                    <div class="ac-slider" data-default-min="300" data-default-max="2000" data-max="3450" data-step="50"
-                         data-unit="$"></div>
-                    <p class="ac-slider__meta">Price:<span class="ac-slider__value ac-slider__min"></span>-<span
-                            class="ac-slider__value ac-slider__max"></span></p><a class="ac-slider__filter ps-btn"
-                                                                                  href="#">Filter</a>
+                    <div class="ac-slider" data-default-min="0" data-default-max="{{$max_price}}" data-max="{{$max_price}}" data-step="500000"
+                         data-unit="vnd"></div>
+                    <p class="ac-slider__meta">
+                        Price:<span class="ac-slider__value ac-slider__min"></span>-<span
+                            class="ac-slider__value ac-slider__max"></span></p>
+                    <a class="ac-slider__filter ps-btn" href="#">Filter</a>
                 </div>
             </aside>
             <div class="ps-sticky desktop">
@@ -124,41 +128,17 @@
                     <div class="ps-widget__content">
                         <table class="table ps-table--size">
                             <tbody>
-                            <tr>
-                                <td class="active">3</td>
-                                <td>5.5</td>
-                                <td>8</td>
-                                <td>10.5</td>
-                                <td>13</td>
-                            </tr>
-                            <tr>
-                                <td>3.5</td>
-                                <td>6</td>
-                                <td>8.5</td>
-                                <td>11</td>
-                                <td>13.5</td>
-                            </tr>
-                            <tr>
-                                <td>4</td>
-                                <td>6.5</td>
-                                <td>9</td>
-                                <td>11.5</td>
-                                <td>14</td>
-                            </tr>
-                            <tr>
-                                <td>4.5</td>
-                                <td>7</td>
-                                <td>9.5</td>
-                                <td>12</td>
-                                <td>14.5</td>
-                            </tr>
-                            <tr>
-                                <td>5</td>
-                                <td>7.5</td>
-                                <td>10</td>
-                                <td>12.5</td>
-                                <td>15</td>
-                            </tr>
+                            <?php $countSize = 0;?>
+                            @for($i = 0;$i < ($size->count()/5);$i++)
+                                <tr>
+                                    @for($j = 0;$j < 5;$j++)
+                                        @if($countSize < $size->count())
+                                            <td class="active">{{$size[$countSize]['number']}}</td>
+                                            <?php $countSize++;?>
+                                        @endif
+                                    @endfor
+                                </tr>
+                            @endfor
                             </tbody>
                         </table>
                     </div>
@@ -169,19 +149,9 @@
                     </div>
                     <div class="ps-widget__content">
                         <ul class="ps-list--color">
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
+                            @foreach($color as $c)
+                                <li style=""><a style="border: 1px solid black ;background-color: {{$c->code}}" href="#"></a></li>
+                            @endforeach
                         </ul>
                     </div>
                 </aside>

@@ -64,10 +64,10 @@
                                     <li><a href="{{route('logout')}}">Log out</a></li>
                                 </ul>
                             </div>
-                            
+
                             @else
                             <a href="{{route('login')}}"> Login &amp; Register</a>
-                            
+
                             @endif
                         </div>
                     </div>
@@ -104,8 +104,8 @@
 
                                         <ul class="mega-item">
                                             @foreach($brand as $b)
-                                            <li><a
-                                                    href="{{route('product_list')}}?categoryId={{$c->categoryId}}&brandId={{$b->brandId}}">{{$b->name}}</a>
+                                            <li>
+                                                <a href="{{route('product_list')}}?categoryId={{$c->categoryId}}&brandId={{$b->brandId}}">{{$b->name}}</a>
                                             </li>
                                             @endforeach
                                         </ul>
@@ -115,8 +115,8 @@
 
                                         <ul class="mega-item">
                                             @foreach($color as $co)
-                                            <li><a
-                                                    href="{{route('product_list')}}?categoryId={{$c->categoryId}}&colorId={{$co->colorId}}">{{$co->name}}</a>
+                                            <li>
+                                                <a href="{{route('product_list')}}?categoryId={{$c->categoryId}}&colorId={{$co->colorId}}">{{$co->name}}</a>
                                             </li>
                                             @endforeach
                                         </ul>
@@ -133,9 +133,13 @@
                 </div>
 
                 <div class="navigation__column right">
-                    <form class="ps-search--header" action="https://nouthemes.net/html/trueshoes/do_action"
-                        method="post">
-                        <input class="form-control" type="text" placeholder="Search Product…">
+                    <form class="ps-search--header" action="{{route('searchProductByName')}}" method="POST">
+                        @csrf
+                        @isset($productName)
+                            <input class="form-control" type="text" name="productName" value="{{$productName}}" placeholder="Search Product…">
+                        @else
+                            <input class="form-control" type="text" name="productName" value="" placeholder="Search Product…">
+                        @endisset
                         <button><i class="ps-icon-search"></i></button>
                     </form>
 
@@ -237,7 +241,7 @@
                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 ">
                             <aside class="ps-widget--footer ps-widget--info">
                                 <header>
-                                    <a class="ps-logo" href="index.html"><img
+                                    <a class="ps-logo" href="{{route('index')}}"><img
                                             src="{{asset('resources/images/logo-white.png')}}" alt=""></a>
                                     <h3 class="ps-widget__title">Address Office 1</h3>
                                 </header>
