@@ -15,7 +15,7 @@ class AuthController extends Controller
     {
         return view('login');
     }
-    
+
     public function post_login(Request $request){
         $validator=Validator::make($request->all(),[
             'email'=>'required|string|email',
@@ -23,7 +23,7 @@ class AuthController extends Controller
         ]);
         if($validator->fails()){
             return redirect()->back()->with('error','Login fail please try again!');
-    
+
         }
         $user = User::where("email",$request->email)->where("password",$request->password)->first();
         $request->session()->put('user',$user);
@@ -39,7 +39,7 @@ class AuthController extends Controller
         return view('register');
     }
 
-    public function post_register(LoginRequest $request)
+    public function post_register(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required',
@@ -47,12 +47,10 @@ class AuthController extends Controller
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
-        // $validator->error()
         if ($validator->fails()) {
             return redirect()->back()->with('error', 'Register failed,please check again!');
-            
         }
-    
+
         $result = [
             'name' => $request['name'],
             'phone' => $request['phone'],
@@ -70,24 +68,23 @@ class AuthController extends Controller
         return redirect()->route('index');
     }
 
-    
     public function selectID(){
         return view('information');
-        
+
     }
 
     public function changepassword(Request $request){
-        $validator = Validator::make($request->all(), [    
+        $validator = Validator::make($request->all(), [
             'old_password'=>'required',
             'password' => 'required',
             'confirm_password' => 'required|same:password',
         ]);
         $check=User::where("userId",$request->idUpdate)->where("password",$request->old_password)->first();
         $check2=User::where("userId",$request->idUpdate)->where("password",$request->password)->first();
-        
+
         if ($validator->fails()) {
             return redirect()->back()->with('error', 'Register failed,please check again!');
-            
+
         }
         if($check==null){
             return redirect()->back()->with('error', 'Register failed,please check again!');
