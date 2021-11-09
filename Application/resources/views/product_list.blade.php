@@ -45,7 +45,7 @@
                         <div class="ps-product__column">
                             <div class="ps-shoe mb-30">
                                 <div class="ps-shoe__thumbnail">
-                                    @if(now()->diffInDays($p->createAt) <= 5)
+                                    @if(now()->diffInDays($p->createdAt) <= 5)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
                                     @if($p->salePrice != null)
@@ -54,7 +54,7 @@
                                         </div>
                                     @endif
                                     <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
-                                    <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}" alt="">
+                                    <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
                                     <a class="ps-shoe__overlay" href="product-detail.html"></a>
                                 </div>
                                 <div class="ps-shoe__content">
@@ -64,10 +64,9 @@
                                             <a href="#">{{$p->brand->name}}</a>
                                         </p>
                                         @if($p->salePrice != null)
-                                            <span class="ps-shoe__price"><del>{{$p->price}} &#8363;</del> {{$p->price*$p->salePrice}}
-                            &#8363;</span>
+                                            <span class="ps-shoe__price"><del>$ {{$p->price}}</del> $ {{$p->price*$p->salePrice}}</span>
                                         @else
-                                            <span class="ps-shoe__price">{{$p->price}} &#8363;</span>
+                                            <span class="ps-shoe__price">$ {{$p->price}}</span>
                                         @endif
                                     </div>
                                 </div>
@@ -112,7 +111,8 @@
 
                 </div>
                 <div class="ps-widget__content">
-                    <div class="ac-slider" data-default-min="0" data-default-max="{{$max_price}}" data-max="{{$max_price}}" data-step="500000"
+                    <div class="ac-slider" data-default-min="0" data-default-max="{{$max_price}}"
+                         data-max="{{$max_price}}" data-step="500000"
                          data-unit="vnd"></div>
                     <p class="ac-slider__meta">
                         Price:<span class="ac-slider__value ac-slider__min"></span>-<span
@@ -150,7 +150,8 @@
                     <div class="ps-widget__content">
                         <ul class="ps-list--color">
                             @foreach($color as $c)
-                                <li style=""><a style="border: 1px solid black ;background-color: {{$c->code}}" href="#"></a></li>
+                                <li style=""><a style="border: 1px solid black ;background-color: {{$c->code}}"
+                                                href="#"></a></li>
                             @endforeach
                         </ul>
                     </div>

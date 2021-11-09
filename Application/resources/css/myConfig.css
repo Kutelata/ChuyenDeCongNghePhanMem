@@ -42,6 +42,12 @@
     width: 100%;
 }
 
+.ps-products-wrap .custom-ps-products{
+    position: static;
+    float: none;
+    margin: 0 auto;
+}
+
 @media (max-width: 1199px){
     .ps-products-wrap .ps-products{
         overflow: hidden;

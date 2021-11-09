@@ -39,11 +39,21 @@ class ProductController extends Controller
         } else {
             $product = Product::paginate(10);
         }
-        return view('product_list', compact('product', 'productName'));
+        return view('search', compact('product', 'productName'));
     }
 
     public function product_detail()
     {
         return view('product_detail');
+    }
+
+    public function cart()
+    {
+        return view('cart');
+    }
+
+    public function checkout()
+    {
+        return view ('checkout');
     }
 }

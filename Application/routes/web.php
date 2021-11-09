@@ -25,9 +25,14 @@ Route::get('/logout','AuthController@signout')->name('logout');
 Route::get('/changeinformation','AuthController@selectID')->name('selectid');
 Route::post('/changeinformation','AuthController@changepassword')->name('updateinfo');
 
-Route::get('/product_list/','ProductController@product_list')->name('product_list');
-Route::post('/product_list/','ProductController@searchProductByName')->name('searchProductByName');
+Route::get('/product_list','ProductController@product_list')->name('product_list');
+
+Route::get('/search','ProductController@searchProductByName')->name('searchProductByName');
 
 Route::get('/product_detail','ProductController@product_detail')->name('product_detail');
+
+Route::get('/cart','ProductController@cart')->name('cart');
+
+Route::get('/checkout','ProductController@checkout')->name('checkout');
 
 
