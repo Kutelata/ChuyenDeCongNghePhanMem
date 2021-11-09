@@ -99,7 +99,7 @@
                     </li>
                 </ul>
                 <div class="fxt-transformY-50 fxt-transition-delay-10">
-                    <p>Already have an account?<a href="login-6.html" class="switcher-text2 inline-text">Log in</a></p>
+                    <p>Already have an account?<a href="{{route('login')}}" class="switcher-text2 inline-text">Log in</a></p>
                 </div>
             </div>
         </div>

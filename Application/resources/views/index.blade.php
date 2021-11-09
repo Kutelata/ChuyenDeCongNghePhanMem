@@ -189,7 +189,7 @@
                                             <a href="#">{{$p->category->name}}</a>,
                                             <a href="#">{{$p->brand->name}}</a>
                                         </p>
-                                        <span class="ps-shoe__price"> {{$p->price}} &#8363;</span>
+                                        <span class="ps-shoe__price">$ {{$p->price}}</span>
                                     </div>
                                 </div>
                             </div>

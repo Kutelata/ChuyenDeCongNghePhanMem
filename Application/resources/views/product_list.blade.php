@@ -112,8 +112,8 @@
                 </div>
                 <div class="ps-widget__content">
                     <div class="ac-slider" data-default-min="0" data-default-max="{{$max_price}}"
-                         data-max="{{$max_price}}" data-step="500000"
-                         data-unit="vnd"></div>
+                         data-max="{{$max_price}}" data-step="20"
+                         data-unit="$"></div>
                     <p class="ac-slider__meta">
                         Price:<span class="ac-slider__value ac-slider__min"></span>-<span
                             class="ac-slider__value ac-slider__max"></span></p>
