@@ -42,9 +42,14 @@ class ProductController extends Controller
         return view('search', compact('product', 'productName'));
     }
 
-    public function product_detail()
+    public function product_detail(Request $request)
     {
-        return view('product_detail');
+        if ($request->productId != null){
+            $product = Product::where('productId','=',$request->productId)->first();
+            return view('product_detail',compact('product'));
+        }else{
+            return redirect()->back();
+        }
     }
 
     public function cart()

@@ -55,7 +55,7 @@
                                     @endif
                                     <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                                     <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
-                                    <a class="ps-shoe__overlay" href="product-detail.html"></a>
+                                    <a class="ps-shoe__overlay" href="{{route('product_detail')}}?productId={{$p->productId}}"></a>
                                 </div>
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__detail"><a class="ps-shoe__name" href="#">{{$p->name}}</a>
