@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Kyslik\ColumnSortable\Sortable;
 
 class Product extends Model
 {
     use Notifiable;
+    use Sortable;
 
     public $timestamps = false;
     protected $table = 'product';
@@ -20,6 +22,11 @@ class Product extends Model
         'image',
         'categoryId',
         'brandId',
+    ];
+
+    public $sortable = [
+        'name',
+        'price'
     ];
 
     public function category()

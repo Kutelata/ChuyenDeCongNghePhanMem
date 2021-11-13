@@ -105,24 +105,29 @@
                                     @if(now()->diffInDays($p->createdAt) <= 5)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
-                                    @if($p->salePrice != null)
+                                    @if($p->discount != null)
                                         <div class="ps-badge ps-badge--sale ps-badge--2nd">
-                                            <span>-{{$p->salePrice*100}}%</span>
+                                            <span>-{{$p->discount*100}}%</span>
                                         </div>
                                     @endif
-                                    <a class="ps-shoe__favorite" href="#"><i class="ps-icon-heart"></i></a>
                                     <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
-                                    <a class="ps-shoe__overlay" href="product-detail.html"></a>
+                                    <a class="ps-shoe__overlay"
+                                       href="{{route('product_detail')}}?productId={{$p->productId}}"></a>
                                 </div>
 
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__detail">
-                                        <a class="ps-shoe__name" href="product-detai.html">{{$p->name}}</a>
+                                        <a class="ps-shoe__name"
+                                           href="{{route('product_detail')}}?productId={{$p->productId}}">{{$p->name}}</a>
                                         <p class="ps-shoe__categories">
-                                            <a href="#">{{$p->category->name}}</a>,
-                                            <a href="#">{{$p->brand->name}}</a>
+                                            <a href="{{route('product_list')}}?categoryId={{$p->categoryId}}">{{$p->category->name}}</a>,
+                                            <a href="{{route('product_list')}}?categoryId=1&brandId={{$p->brandId}}">{{$p->brand->name}}</a>
                                         </p>
-                                        <span class="ps-shoe__price">$ {{$p->price}}</span>
+                                        @if($p->discount != null)
+                                            <span class="ps-shoe__price"><del>$ {{$p->price}}</del> $ {{$p->salePrice}}</span>
+                                        @else
+                                            <span class="ps-shoe__price">$ {{$p->price}}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -169,27 +174,28 @@
                                     @if(now()->diffInDays($p->createAt) <= 5)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
-                                    @if($p->salePrice != null)
+                                    @if($p->discount != null)
                                         <div class="ps-badge ps-badge--sale ps-badge--2nd">
-                                            <span>-{{$p->salePrice*100}}%</span>
+                                            <span>-{{$p->discount*100}}%</span>
                                         </div>
                                     @endif
-                                    <a class="ps-shoe__favorite" href="#">
-                                        <i class="ps-icon-heart"></i></a><img
-                                        src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
-                                    <a class="ps-shoe__overlay" href="product-detail.html">
-                                    </a>
+                                    <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
+                                    <a class="ps-shoe__overlay" href="{{route('product_detail')}}?productId={{$p->productId}}"></a>
                                 </div>
 
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__detail">
-                                        <a class="ps-shoe__name" href="product-detai.html">{{$p->name}}</a>
+                                        <a class="ps-shoe__name" href="{{route('product_detail')}}?productId={{$p->productId}}">{{$p->name}}</a>
 
                                         <p class="ps-shoe__categories">
-                                            <a href="#">{{$p->category->name}}</a>,
-                                            <a href="#">{{$p->brand->name}}</a>
+                                            <a href="{{route('product_list')}}?categoryId={{$p->categoryId}}">{{$p->category->name}}</a>,
+                                            <a href="{{route('product_list')}}?categoryId=1&brandId={{$p->brandId}}">{{$p->brand->name}}</a>
                                         </p>
-                                        <span class="ps-shoe__price">$ {{$p->price}}</span>
+                                        @if($p->discount != null)
+                                            <span class="ps-shoe__price"><del>$ {{$p->price}}</del> $ {{$p->salePrice}}</span>
+                                        @else
+                                            <span class="ps-shoe__price">$ {{$p->price}}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -371,34 +377,34 @@
         </div>
     </div>
 
-    <div class="ps-home-contact">
-        <div data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17" id="contact-map"></div>
+{{--    <div class="ps-home-contact">--}}
+{{--        <div data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17" id="contact-map"></div>--}}
 
-        <div class="ps-home-contact__form">
-            <header>
-                <h3>Contact Us</h3>
+{{--        <div class="ps-home-contact__form">--}}
+{{--            <header>--}}
+{{--                <h3>Contact Us</h3>--}}
 
-                <p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>
-            </header>
+{{--                <p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>--}}
+{{--            </header>--}}
 
-            <footer>
-                <form action="https://nouthemes.net/html/trueshoes/product-listing.html" method="post">
-                    <div class="form-group"><label>Name<span>*</span></label> <input class="form-control" type="text"/>
-                    </div>
+{{--            <footer>--}}
+{{--                <form action="https://nouthemes.net/html/trueshoes/product-listing.html" method="post">--}}
+{{--                    <div class="form-group"><label>Name<span>*</span></label> <input class="form-control" type="text"/>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group"><label>Email<span>*</span></label> <input class="form-control"
-                                                                                      type="email"/>
-                    </div>
+{{--                    <div class="form-group"><label>Email<span>*</span></label> <input class="form-control"--}}
+{{--                                                                                      type="email"/>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group"><label>Your message<span>*</span></label><textarea class="form-control"
-                                                                                               rows="4"></textarea>
-                    </div>
+{{--                    <div class="form-group"><label>Your message<span>*</span></label><textarea class="form-control"--}}
+{{--                                                                                               rows="4"></textarea>--}}
+{{--                    </div>--}}
 
-                    <div class="form-group text-center">
-                        <button class="ps-btn">Send Message<i class="ps-icon-next"></i></button>
-                    </div>
-                </form>
-            </footer>
-        </div>
-    </div>
+{{--                    <div class="form-group text-center">--}}
+{{--                        <button class="ps-btn">Send Message<i class="ps-icon-next"></i></button>--}}
+{{--                    </div>--}}
+{{--                </form>--}}
+{{--            </footer>--}}
+{{--        </div>--}}
+{{--    </div>--}}
 @endsection

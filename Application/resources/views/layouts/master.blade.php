@@ -95,7 +95,7 @@
                     @foreach($category as $c)
                         @if($c->description == 'root')
                             <li class="menu-item">
-                                <a href="{{route('product_list')}}">{{$c->name}}</a>
+                                <a href="{{route('product_list')}}?categoryId={{$c->categoryId}}">{{$c->name}}</a>
                             </li>
                         @else
                             <li class="menu-item menu-item-has-children has-mega-menu">
@@ -136,13 +136,13 @@
             </div>
 
             <div class="navigation__column right">
-                <form class="ps-search--header" action="{{route('searchProductByName')}}?productName=@isset($productName){{$productName}}@endisset" method="GET">
+                <form class="ps-search--header" action="{{route('searchProductByName')}}?searchName=@isset($searchName){{$searchName}}@endisset" method="GET">
                     @csrf
-                    @isset($productName)
-                        <input class="form-control" type="text" name="productName" value="{{$productName}}"
+                    @isset($searchName)
+                        <input class="form-control" type="text" name="searchName" value="{{$searchName}}"
                                placeholder="Search Product…">
                     @else
-                        <input class="form-control" type="text" name="productName" value=""
+                        <input class="form-control" type="text" name="searchName" value=""
                                placeholder="Search Product…">
                     @endisset
                     <button id="btnSearchProduct"><i class="ps-icon-search"></i></button>

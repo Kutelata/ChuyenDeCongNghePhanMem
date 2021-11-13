@@ -2,6 +2,10 @@
     border-right: 1px solid #e5e5e5;
 }
 
+.ps-cart__listing{
+    z-index: 2000;
+}
+
 .ps-section__title {
     text-align: center;
     margin: 0 50%;
@@ -31,6 +35,14 @@
     position: static;
     top: 0px;
     right: 0px;
+}
+
+.ps-select button.btn{
+    font-size: 14px;
+}
+
+.ps-pagination .pagination .color_page:before {
+    background-color: #2AC37D;
 }
 
 .mega-menu {
