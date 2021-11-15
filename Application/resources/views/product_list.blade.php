@@ -98,11 +98,13 @@
             <aside class="ps-widget--sidebar ps-widget--category">
                 <div class="ps-widget__header">
                     <h3>Category</h3>
+                    <a href="#" id="searchAll">Filter</a>
                 </div>
                 <div class="ps-widget__content">
                     <ul class="ps-list--checked">
                         @foreach($category as $c)
-                            <li class="current"><a href="#">{{$c->name}}</a></li>
+                            <li class=""><a class="searchCate" data-cate="{{$c->categoryId}}" href="#">{{$c->name}}</a>
+                            </li>
                         @endforeach
                     </ul>
                 </div>
@@ -238,6 +240,30 @@
             e.preventDefault();
             var value = $(this).data('value');
             queryParams.set("sortOrder", value);
+            history.replaceState(null, null, "?" + queryParams.toString());
+            window.location.href = window.location.href;
+        });
+
+        const listSearchCate = new Array();
+        $(".searchCate").click(function (e) {
+            e.preventDefault();
+            if (!$(this).parent().hasClass("current")) {
+                $(this).parent().addClass("current");
+                if (!listSearchCate.includes($(this).data("cate"))) {
+                    listSearchCate.push($(this).data("cate"));
+                }
+            } else {
+                $(this).parent().removeClass("current");
+                if (listSearchCate.includes($(this).data("cate"))) {
+                    listSearchCate.splice(listSearchCate.indexOf($(this).data("cate")),1);
+                }
+            }
+        })
+
+        $("#searchAll").click(function (e) {
+            e.preventDefault();
+            queryParams.set("page", 1);
+            queryParams.set("categoryId", listSearchCate);
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });
