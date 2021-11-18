@@ -35,4 +35,12 @@ Route::get('/cart','ProductController@cart')->name('cart');
 
 Route::get('/checkout','ProductController@checkout')->name('checkout');
 
+//cart and checkout
+Route::get('/Add-Cart/{id}','ProductController@AddCart')->name('AddCart');
+Route::get('/Delete-Item-Cart/{id}','ProductController@DeleteItemCart')->name('DeleteItemCart');
+Route::get('/Delete-Item-List-Cart/{id}','ProductController@DeleteListItemCart')->name('DeleteItemListCart');
+Route::get('/List-Carts','ProductController@ViewListCart')->name('ViewListCart');
+Route::get('/Save-Item-List-Cart/{id}/{quantity}','ProductController@SaveListItemCart')->name('UpdateListCart');
+Route::get('/Checkout/','ProductController@Checkout')->name('checkout');
+Route::post('/Checkout/','ProductController@post_checkout')->name('checkout_success');
 

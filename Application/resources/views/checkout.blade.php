@@ -1,14 +1,27 @@
 @extends('layouts.master')
 @section('title','Shoe - Checkout')
+{{--    </script>--}}
+<!-- JavaScript -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
+<!-- CSS -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+<!-- Default theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+<!-- Semantic UI theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+<!-- Bootstrap theme -->
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 @section('main')
     <div class="ps-checkout pt-80 pb-80">
         <div class="ps-container">
-            <form class="ps-checkout__form" action="https://nouthemes.net/html/trueshoes/do_action" method="post">
+            <form class="ps-checkout__form" action="{{route('checkout_success')}}" method="post">
+                @csrf
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                         <div class="ps-checkout__billing">
                             <h3>Billing Detail</h3>
+                            <input  hidden class="form-control" name="userId" value="{{Session::get('user')->userId}}">
                             <div class="form-group form-group--inline">
                                 <label>First Name<span>*</span>
                                 </label>
@@ -72,19 +85,30 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>HABITANT x1</td>
-                                        <td>$300.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Card Subtitle</td>
-                                        <td>$300.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Order Total</td>
-                                        <td>$300.00</td>
-                                    </tr>
+                                    @if(Session::has('Cart')!=null)
+                                        @foreach(Session::get('Cart')->products as $item)
+                                            <input  hidden class="form-control" name="productId" value="{{$item['productInfo']->productId}}">
+                                            <input  hidden class="form-control" name="productName" value="{{$item['productInfo']->name}}">
+                                            <input  hidden class="form-control" name="quantity" value="{{$item['quantity']}}">
+                                            <input  hidden class="form-control" name="productPrice" value=" {{$item['price']}}">
+
+
+                                            <tr>
+                                                <td>{{$item['productInfo']->name}} x{{$item['quantity']}}</td>
+                                                <td name="">${{$item['price']}}</td>
+                                            </tr>
+                                        @endforeach
+                                        {{--                                    <tr>--}}
+                                        {{--                                        <td>Card Subtitle</td>--}}
+                                        {{--                                        <td>$300.00</td>--}}
+                                        {{--                                    </tr>--}}
+                                        <tr>
+                                            <td>Order Total</td>
+                                            <td >${{(Session::get('Cart')->totalPrice)}}</td>
+                                        </tr>
+                                        <input  hidden class="form-control" name="total" value="{{(Session::get('Cart')->totalPrice)}}">
                                     </tbody>
+                                    @endif
                                 </table>
                             </div>
                             <footer>
@@ -107,8 +131,10 @@
                                         <li><a href="#"><img src="{{asset('resources/images/payment/2.png')}}" alt=""></a></li>
                                         <li><a href="#"><img src="{{asset('resources/images/payment/1.png')}}" alt=""></a></li>
                                     </ul>
-                                    <button class="ps-btn ps-btn--fullwidth">Place Order<i class="ps-icon-next"></i>
+                                    <button type="submit" onclick="popup()" class="ps-btn ps-btn--fullwidth">
+                                        <a href="{{route('checkout_success')}}">Place Order</a><i class="ps-icon-next"></i>
                                     </button>
+
                                 </div>
                             </footer>
                         </div>
@@ -122,4 +148,15 @@
             </form>
         </div>
     </div>
+    <script>
+        function popup(){
+                @if(Session::has('Cart')==null){
+                alertify
+                    .alert("This is an alert dialog.", function(){
+                        alertify.message('Order succeed!Thank you for shopping with us');
+                    });
+            }
+            @endif
+        }
+    </script>
 @endsection

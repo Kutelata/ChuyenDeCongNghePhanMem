@@ -36,7 +36,7 @@
                         <div class="ps-product__column">
                             <div class="ps-shoe mb-30">
                                 <div class="ps-shoe__thumbnail">
-                                    @if(now()->diffInDays($p->createdAt) <= 5)
+                                    @if(now()->diffInDays($p->createdAt) <= 30)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
                                     @if($p->discount != null)

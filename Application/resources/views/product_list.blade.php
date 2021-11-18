@@ -58,7 +58,7 @@
                         <div class="ps-product__column">
                             <div class="ps-shoe mb-30">
                                 <div class="ps-shoe__thumbnail">
-                                    @if(now()->diffInDays($p->createdAt) <= 5)
+                                    @if(now()->diffInDays($p->createdAt) <= 30)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
                                     @if($p->discount != null)
@@ -98,13 +98,11 @@
             <aside class="ps-widget--sidebar ps-widget--category">
                 <div class="ps-widget__header">
                     <h3>Category</h3>
-                    <a href="#" id="searchAll">Filter</a>
                 </div>
                 <div class="ps-widget__content">
                     <ul class="ps-list--checked">
                         @foreach($category as $c)
-                            <li class=""><a class="searchCate" data-cate="{{$c->categoryId}}" href="#">{{$c->name}}</a>
-                            </li>
+                            <li class=""><a class="searchCate" data-cate="{{$c->categoryId}}" href="#">{{$c->name}}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -116,7 +114,7 @@
                 <div class="ps-widget__content">
                     <ul class="ps-list--checked">
                         @foreach($brand as $b)
-                            <li class="current"><a href="product-listing.html">{{$b->name}}</a></li>
+                            <li class=""><a class="searchBrand" data-brand="{{$b->brandId}}" href="#">{{$b->name}}</a></li>
                         @endforeach
                     </ul>
                 </div>
@@ -133,7 +131,6 @@
                     <p class="ac-slider__meta">
                         Price:<span class="ac-slider__value ac-slider__min"></span>-<span
                             class="ac-slider__value ac-slider__max"></span></p>
-                    <a class="ac-slider__filter ps-btn" href="#">Filter</a>
                 </div>
             </aside>
             <div class="ps-sticky desktop">
@@ -173,6 +170,7 @@
                     </div>
                 </aside>
             </div>
+            <a class="ps-btn" id="searchAll" href="#">Filter</a>
         </div>
     </div>
 @endsection
@@ -191,7 +189,6 @@
                 }
             });
         }
-
         if (sortOrderParam) {
             var orderBy = $(".orderBy");
             $.each(orderBy, function (i, option) {
@@ -202,7 +199,6 @@
                 }
             });
         }
-
         $(".previousPage").click(function (e) {
             e.preventDefault();
             var previousPage = $(this).data("page");
@@ -210,7 +206,6 @@
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });
-
         $(".nextPage").click(function (e) {
             e.preventDefault();
             var nextPage = $(this).data("page");
@@ -218,8 +213,6 @@
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });
-
-
         $(".pageDirect").click(function (e) {
             e.preventDefault();
             var pageDirect = $(this).data("page");
@@ -227,7 +220,6 @@
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });
-
         $("#sortProduct").change(function (e) {
             e.preventDefault();
             var value = $(this).val();
@@ -235,7 +227,6 @@
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });
-
         $(".orderBy").click(function (e) {
             e.preventDefault();
             var value = $(this).data('value');
@@ -255,15 +246,68 @@
             } else {
                 $(this).parent().removeClass("current");
                 if (listSearchCate.includes($(this).data("cate"))) {
-                    listSearchCate.splice(listSearchCate.indexOf($(this).data("cate")),1);
+                    listSearchCate.splice(listSearchCate.indexOf($(this).data("cate")), 1);
                 }
             }
         })
+
+        var cateParam = queryParams.get('categoryId');
+        if (cateParam) {
+            var cate = $(".searchCate");
+            $.each(cate, function () {
+                if (cateParam.includes($(this).data('cate'))) {
+                    $(this).parent().addClass("current");
+                    if (!listSearchCate.includes($(this).data("cate"))) {
+                        listSearchCate.push($(this).data("cate"));
+                    }
+                }
+            });
+        }else{
+            cateParam = 1;
+            var cate = $(".searchCate");
+            $.each(cate, function () {
+                if (cateParam == $(this).data('cate')) {
+                    $(this).parent().addClass("current");
+                    if (!listSearchCate.includes($(this).data("cate"))) {
+                        listSearchCate.push($(this).data("cate"));
+                    }
+                }
+            });
+        }
+        const listSearchBrand = new Array();
+        $(".searchBrand").click(function (e) {
+            e.preventDefault();
+            if (!$(this).parent().hasClass("current")) {
+                $(this).parent().addClass("current");
+                if (!listSearchBrand.includes($(this).data("brand"))) {
+                    listSearchBrand.push($(this).data("brand"));
+                }
+            } else {
+                $(this).parent().removeClass("current");
+                if (listSearchBrand.includes($(this).data("brand"))) {
+                    listSearchBrand.splice(listSearchBrand.indexOf($(this).data("brand")), 1);
+                }
+            }
+        })
+
+        var brandParam = queryParams.get('brandId');
+        if (brandParam) {
+            var brand = $(".searchBrand");
+            $.each(brand, function () {
+                if (brandParam.includes($(this).data('brand'))) {
+                    $(this).parent().addClass("current");
+                    if (!listSearchBrand.includes($(this).data("brand"))) {
+                        listSearchBrand.push($(this).data("brand"));
+                    }
+                }
+            });
+        }
 
         $("#searchAll").click(function (e) {
             e.preventDefault();
             queryParams.set("page", 1);
             queryParams.set("categoryId", listSearchCate);
+            queryParams.set("brandId", listSearchBrand);
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;
         });

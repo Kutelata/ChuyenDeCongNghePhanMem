@@ -102,7 +102,7 @@
                         <div class="ps-shoes--carousel">
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail">
-                                    @if(now()->diffInDays($p->createdAt) <= 5)
+                                    @if(now()->diffInDays($p->createdAt) <= 30)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
                                     @if($p->discount != null)
@@ -167,11 +167,11 @@
                      data-owl-item-md="3"
                      data-owl-item-sm="2" data-owl-item-xs="1" data-owl-loop="true" data-owl-mousedrag="on"
                      data-owl-nav="false" data-owl-speed="5000">
-                    @foreach($saleProduct as $p)
+                    @foreach($discountProduct as $p)
                         <div class="ps-shoes--carousel">
                             <div class="ps-shoe">
                                 <div class="ps-shoe__thumbnail">
-                                    @if(now()->diffInDays($p->createAt) <= 5)
+                                    @if(now()->diffInDays($p->createdAt) <= 30)
                                         <div class="ps-badge"><span>New</span></div>
                                     @endif
                                     @if($p->discount != null)

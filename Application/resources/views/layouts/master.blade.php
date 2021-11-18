@@ -20,6 +20,7 @@
     <link href="{{asset('resources/plugins/ps-icon/style.css')}}" rel="stylesheet"/>
 
     <!-- CSS Library-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link href="{{asset('resources/plugins/bootstrap/dist/css/bootstrap.min.css')}}" rel="stylesheet"/>
     <link href="{{asset('resources/plugins/owl-carousel/assets/owl.carousel.css')}}" rel="stylesheet"/>
     <link href="{{asset('resources/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css')}}" rel="stylesheet"/>
@@ -129,14 +130,13 @@
                             </li>
                         @endif
                     @endforeach
-                    <li class="menu-item">
-                        <a href="contact-us.html">Contact</a>
-                    </li>
                 </ul>
             </div>
 
             <div class="navigation__column right">
-                <form class="ps-search--header" action="{{route('searchProductByName')}}?searchName=@isset($searchName){{$searchName}}@endisset" method="GET">
+                <form class="ps-search--header"
+                      action="{{route('searchProductByName')}}?searchName=@isset($searchName){{$searchName}}@endisset"
+                      method="GET">
                     @csrf
                     @isset($searchName)
                         <input class="form-control" type="text" name="searchName" value="{{$searchName}}"
@@ -149,56 +149,55 @@
                 </form>
 
                 <div class="ps-cart">
-                    <a class="ps-cart__toggle" href="#"><span><i>20</i></span><i
-                            class="ps-icon-shopping-cart"></i></a>
-                    <div class="ps-cart__listing">
-                        <div class="ps-cart__content">
-                            <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img
-                                        src="{{asset('resources/images/cart-preview/1.jpg')}}" alt="">
-                                </div>
-                                <div class="ps-cart-item__content"><a class="ps-cart-item__title"
-                                                                      href="product-detail.html">Amazin’ Glazin’</a>
-                                    <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                                </div>
-                            </div>
-                            <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img
-                                        src="{{asset('resources/images/cart-preview/2.jpg')}}" alt="">
-                                </div>
-                                <div class="ps-cart-item__content"><a class="ps-cart-item__title"
-                                                                      href="product-detail.html">The Crusty
-                                        Croissant</a>
-                                    <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                                </div>
-                            </div>
-                            <div class="ps-cart-item">
-                                <a class="ps-cart-item__close" href="#"></a>
-                                <div class="ps-cart-item__thumbnail">
-                                    <a href="product-detail.html"></a><img
-                                        src="{{asset('resources/images/cart-preview/3.jpg')}}" alt="">
-                                </div>
-                                <div class="ps-cart-item__content"><a class="ps-cart-item__title"
-                                                                      href="product-detail.html">The Rolling Pin</a>
-                                    <p><span>Quantity:<i>12</i></span><span>Total:<i>£176</i></span></p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ps-cart__total">
-                            <p>Number of items:<span>36</span></p>
-                            <p>Item Total:<span>£528.00</span></p>
-                        </div>
-                        <div class="ps-cart__footer"><a class="ps-btn" href="cart.html">Check out<i
-                                    class="ps-icon-arrow-left"></i></a></div>
-                    </div>
-                </div>
+                    <a class="ps-cart__toggle" href="#">
+                        <span>
+                            @if(Session::has('Cart')!=null)
+                                <i id="total-quantity">{{Session::get('Cart')->totalQuantity}}</i>
+                            @else
 
-                <div class="menu-toggle"></div>
+                                <i id="total-quantity">0</i>
+
+                            @endif
+                        </span>
+
+                        <i class="ps-icon-shopping-cart"></i></a>
+                    <div class="ps-cart__listing">
+                        <div class="ps-cart__content" id="change-item-cart">
+                            @if(Session::has('Cart')!=null)
+                                @foreach(Session::get('Cart')->products as $item)
+                                    <div class="ps-cart-item">
+                                        <a class="ps-cart-item__close" data-id="{{$item['productInfo']->productId}}"
+                                           href="#"></a>
+                                        <div class="ps-cart-item__thumbnail">
+                                            <a href="product-detail.html"></a><img
+                                                src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg"
+                                                alt="">
+                                        </div>
+                                        <div class="ps-cart-item__content">
+                                            <a class="ps-cart-item__title"
+                                               href="product-detail.html">{{$item['productInfo']->name}}</a>
+                                            <p>
+                                                <span>Quantity:{{$item['quantity']}}</span><span>Total:<i>${{$item['price']}}</i></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                @endforeach
+                                <div class="ps-cart__total">
+                                    <p>Number of items:<span>{{(Session::get('Cart')->totalQuantity)}}</span></p>
+                                    <p>Item Total:<span>${{(Session::get('Cart')->totalPrice)}}</span></p>
+                                </div>
+
+                                <div class="ps-cart__footer">
+                                    <a class="ps-btn" href="{{route('ViewListCart')}}">Check out<i
+                                            class="ps-icon-arrow-left"></i></a>
+                                </div>
+                        </div>
+                    </div>
+                    @endif
+                </div>
             </div>
+
+            <div class="menu-toggle"></div>
         </div>
     </nav>
 </header>
@@ -227,8 +226,7 @@
                     <h3><i class="fa fa-envelope"></i>Sign up to Newsletter</h3>
                 </div>
                 <div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 ">
-                    <form class="ps-subscribe__form" action="https://nouthemes.net/html/trueshoes/do_action"
-                          method="post">
+                    <form class="ps-subscribe__form" action="#">
                         <input class="form-control" type="text" placeholder="">
                         <button>Sign up now</button>
                     </form>
@@ -354,8 +352,7 @@
 <script data-cfasync="false" src="{{asset('resources/plugins/email/email-decode.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/jquery/dist/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('resources/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}">
-</script>
+<script type="text/javascript" src="{{asset('resources/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/gmap3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/imagesloaded.pkgd.js')}}"></script>
@@ -394,12 +391,9 @@
         src="{{asset('resources/plugins/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
 <!-- Custom scripts-->
 <script type="text/javascript" src="{{asset('resources/js/main.js')}}"></script>
-{{--@isset($productName)--}}
-{{--    <script>--}}
-{{--        window.location.href = "{{route('searchProductByName')}}?productName=" + "{{$productName}}";--}}
-{{--    </script>--}}
-{{--@endisset--}}
+<script>
 
+</script>
 @yield('js')
 </body>
 

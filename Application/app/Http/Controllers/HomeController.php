@@ -10,7 +10,7 @@ class HomeController extends Controller
 {
     public function index(){
         $newProduct = Product::all()->sortByDesc('createdAt')->take(5);
-        $saleProduct = Product::all()->sortByDesc('salePrice')->take(5);
-        return view('index',compact('newProduct','saleProduct'));
+        $discountProduct = Product::all()->sortByDesc('discount')->take(5);
+        return view('index',compact('newProduct','discountProduct'));
     }
 }
