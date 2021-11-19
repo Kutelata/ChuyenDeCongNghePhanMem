@@ -191,9 +191,11 @@
                                     <a class="ps-btn" href="{{route('ViewListCart')}}">Check out<i
                                             class="ps-icon-arrow-left"></i></a>
                                 </div>
+                            @else
+                                <p style="text-align: center;color: white">Your cart is empty !</p>
+                            @endif
                         </div>
                     </div>
-                    @endif
                 </div>
             </div>
 
@@ -218,25 +220,6 @@
 
 <main class="ps-main">
     @yield('main')
-
-    <div class="ps-subscribe">
-        <div class="ps-container">
-            <div class="row">
-                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12 ">
-                    <h3><i class="fa fa-envelope"></i>Sign up to Newsletter</h3>
-                </div>
-                <div class="col-lg-5 col-md-7 col-sm-12 col-xs-12 ">
-                    <form class="ps-subscribe__form" action="#">
-                        <input class="form-control" type="text" placeholder="">
-                        <button>Sign up now</button>
-                    </form>
-                </div>
-                <div class="col-lg-4 col-md-5 col-sm-12 col-xs-12 ">
-                    <p>...and receive <span>$20</span> coupon for first shopping.</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="ps-footer bg--cover" data-background="{{asset('resources/images/background/parallax.jpg')}}">
         <div class="ps-footer__content">
@@ -352,7 +335,8 @@
 <script data-cfasync="false" src="{{asset('resources/plugins/email/email-decode.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/jquery/dist/jquery.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/bootstrap/dist/js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('resources/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
+<script type="text/javascript"
+        src="{{asset('resources/plugins/jquery-bar-rating/dist/jquery.barrating.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/owl-carousel/owl.carousel.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/gmap3.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('resources/plugins/imagesloaded.pkgd.js')}}"></script>
@@ -391,9 +375,7 @@
         src="{{asset('resources/plugins/revolution/js/extensions/revolution.extension.migration.min.js')}}"></script>
 <!-- Custom scripts-->
 <script type="text/javascript" src="{{asset('resources/js/main.js')}}"></script>
-<script>
 
-</script>
 @yield('js')
 </body>
 

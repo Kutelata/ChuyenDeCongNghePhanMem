@@ -6,6 +6,7 @@ use App\Cart;
 use App\Models\Brand;
 use App\Models\Order;
 use App\Models\Orderdetail;
+use App\Models\ProductSize;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Size;
@@ -18,12 +19,12 @@ class ProductController extends Controller
 {
     public function product_list(Request $request)
     {
-        if ($request->categoryId != null){
+        if ($request->categoryId != null) {
             $categoryId = array_map('intval', explode(",", $request->categoryId));
             if (count($categoryId) == 1 && in_array(1, $categoryId)) {
                 $categoryId = 1;
             }
-        }else{
+        } else {
             $categoryId = 1;
         }
 
@@ -33,7 +34,19 @@ class ProductController extends Controller
             $brandId = null;
         }
 
-        $colorId = $request->colorId;
+        if ($request->colorId != null) {
+            $colorId = array_map('intval', explode(",", $request->colorId));
+        } else {
+            $colorId = null;
+        }
+
+        if ($request->sizeId != null) {
+            $sizeId = array_map('intval', explode(",", $request->sizeId));
+        } else {
+            $sizeId = null;
+        }
+
+
         $orderBy = $request->orderBy;
         $sortOrder = $request->sortOrder;
 
@@ -45,15 +58,25 @@ class ProductController extends Controller
         }
         if ($categoryId == 1) {
             if ($brandId != null) {
-                $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                if ($colorId != null) {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                } else {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                }
+            } elseif ($colorId != null) {
+                $product = Product::where('categoryId', '!=', 0)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
             } else {
                 $product = Product::where('categoryId', '!=', 0)->orderBy($orderBy, $sortOrder)->paginate(10);
             }
         } else {
             if ($brandId != null) {
-                $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                if ($colorId != null) {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                } else {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                }
             } elseif ($colorId != null) {
-                $product = Product::where('categoryId', '=', $categoryId)->where('colorId', '=', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                $product = Product::where('categoryId', '=', $categoryId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
             } else {
                 $product = Product::where('categoryId', '=', $categoryId)->orderBy($orderBy, $sortOrder)->paginate(10);
             }
@@ -162,8 +185,7 @@ class ProductController extends Controller
         $checked = $request->filterbrand;
         if ($checked == null) {
             return redirect()->route('product_list');
-        }
-        else {
+        } else {
             $product = Product::where('brandId', '=', $checked)->paginate(10);
         }
         return view('product_list', compact('product', 'checked'));

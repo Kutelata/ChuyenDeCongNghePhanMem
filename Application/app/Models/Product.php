@@ -10,7 +10,6 @@ use Kyslik\ColumnSortable\Sortable;
 class Product extends Model
 {
     use Notifiable;
-    use Sortable;
 
     public $timestamps = false;
     protected $table = 'product';
@@ -18,15 +17,12 @@ class Product extends Model
         'productId',
         'name',
         'price',
+        'discount',
+        'salePrice',
         'description',
         'image',
         'categoryId',
         'brandId',
-    ];
-
-    public $sortable = [
-        'name',
-        'price'
     ];
 
     public function category()
@@ -42,5 +38,10 @@ class Product extends Model
     public function color()
     {
         return $this->belongsTo(Color::class, 'colorId', 'colorId');
+    }
+
+    public function productsize()
+    {
+        return $this->hasMany(ProductSize::class, 'productId', 'productId');
     }
 }

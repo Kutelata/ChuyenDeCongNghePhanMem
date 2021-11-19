@@ -34,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
             $view->with('brand', Brand::all());
             $view->with('color', Color::all());
             $view->with('size', Size::all());
-            $view->with('max_price', Product::max('price'));
+            $view->with('max_price', Product::max('salePrice'));
         });
     }
 }

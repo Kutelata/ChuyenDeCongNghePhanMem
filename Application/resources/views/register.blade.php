@@ -84,20 +84,6 @@
                 </form>
             </div>
             <div class="fxt-footer">
-                <ul class="fxt-socials">
-                    <li class="fxt-facebook fxt-transformY-50 fxt-transition-delay-6">
-                        <a href="#" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    </li>
-                    <li class="fxt-twitter fxt-transformY-50 fxt-transition-delay-7">
-                        <a href="#" title="twitter"><i class="fab fa-twitter"></i></a>
-                    </li>
-                    <li class="fxt-google fxt-transformY-50 fxt-transition-delay-8">
-                        <a href="#" title="google"><i class="fab fa-google-plus-g"></i></a>
-                    </li>
-                    <li class="fxt-linkedin fxt-transformY-50 fxt-transition-delay-9">
-                        <a href="#" title="linkedin"><i class="fab fa-linkedin-in"></i></a>
-                    </li>
-                </ul>
                 <div class="fxt-transformY-50 fxt-transition-delay-10">
                     <p>Already have an account?<a href="{{route('login')}}" class="switcher-text2 inline-text">Log in</a></p>
                 </div>

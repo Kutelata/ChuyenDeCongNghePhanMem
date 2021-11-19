@@ -70,9 +70,9 @@
                         </p>
                         <h3 class="ps-product__price">
                             @if($product->sale != null)
-                                $ {{$product->price*$product->sale}}<del>$ {{$product->price}}</del>
+                                ${{$product->price*$product->sale}}<del>$ {{$product->price}}</del>
                             @else
-                                $ {{$product->price}}
+                                ${{$product->price}}
                             @endif
                         </h3>
                         <div class="ps-product__block ps-product__quickview">

@@ -140,13 +140,13 @@
 
     <div class="ps-section--offer">
         <div class="ps-column">
-            <a class="ps-offer" href="product-listing.html"><img alt=""
-                                                                 src="{{asset('resources/images/banner/hom')}}e-banner-1.png"/></a>
+            <a class="ps-offer" href="{{route('product_list')}}"><img alt=""
+                                                                      src="{{asset('resources/images/banner/hom')}}e-banner-1.png"/></a>
         </div>
 
         <div class="ps-column">
-            <a class="ps-offer" href="product-listing.html"><img alt=""
-                                                                 src="{{asset('resources/images/banner/hom')}}e-banner-2.png"/></a>
+            <a class="ps-offer" href="{{route('product_list')}}"><img alt=""
+                                                                      src="{{asset('resources/images/banner/hom')}}e-banner-2.png"/></a>
         </div>
     </div>
 
@@ -180,12 +180,14 @@
                                         </div>
                                     @endif
                                     <img src="{{asset('resources/images/shoe/')}}/{{$p->image}}.jpg" alt="">
-                                    <a class="ps-shoe__overlay" href="{{route('product_detail')}}?productId={{$p->productId}}"></a>
+                                    <a class="ps-shoe__overlay"
+                                       href="{{route('product_detail')}}?productId={{$p->productId}}"></a>
                                 </div>
 
                                 <div class="ps-shoe__content">
                                     <div class="ps-shoe__detail">
-                                        <a class="ps-shoe__name" href="{{route('product_detail')}}?productId={{$p->productId}}">{{$p->name}}</a>
+                                        <a class="ps-shoe__name"
+                                           href="{{route('product_detail')}}?productId={{$p->productId}}">{{$p->name}}</a>
 
                                         <p class="ps-shoe__categories">
                                             <a href="{{route('product_list')}}?categoryId={{$p->categoryId}}">{{$p->category->name}}</a>,
@@ -232,10 +234,11 @@
                     </header>
 
                     <footer>
-                        <p>&ldquo;Dessert pudding dessert jelly beans cupcake sweet caramels gingerbread. Fruitcake
-                            biscuit
-                            cheesecake. Cookie topping sweet muffin pudding tart bear claw sugar plum croissant.
-                            &ldquo;</p>
+                        <p>
+                            &ldquo;My impression was very good. The homepage is extremely functional, informative, easy
+                            to use and helpful. I really like the fact that there is a big variety of styles, and a lot
+                            of information about everything.&ldquo;
+                        </p>
                     </footer>
                 </div>
 
@@ -256,10 +259,10 @@
                     </header>
 
                     <footer>
-                        <p>&ldquo;Dessert pudding dessert jelly beans cupcake sweet caramels gingerbread. Fruitcake
-                            biscuit
-                            cheesecake. Cookie topping sweet muffin pudding tart bear claw sugar plum croissant.
-                            &ldquo;</p>
+                        <p>&ldquo;I really appreciated the great and friendly customer service coupled with an
+                            incredibly high-class product. Please continue building these personal relationships with
+                            each of your customers.&ldquo;
+                        </p>
                     </footer>
                 </div>
 
@@ -280,10 +283,12 @@
                     </header>
 
                     <footer>
-                        <p>&ldquo;Dessert pudding dessert jelly beans cupcake sweet caramels gingerbread. Fruitcake
-                            biscuit
-                            cheesecake. Cookie topping sweet muffin pudding tart bear claw sugar plum croissant.
-                            &ldquo;</p>
+                        <p>
+                            &ldquo;A few years ago I ordered a pair of shoes for my boyfriend. My boyfriend had
+                            specifically picked out the shoes from your website and shown them to me. My overall
+                            experience with your company was tremendous and I would certainly do business with you
+                            again, as well as refer others to you.&ldquo;
+                        </p>
                     </footer>
                 </div>
             </div>
@@ -377,34 +382,34 @@
         </div>
     </div>
 
-{{--    <div class="ps-home-contact">--}}
-{{--        <div data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17" id="contact-map"></div>--}}
+    {{--    <div class="ps-home-contact">--}}
+    {{--        <div data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17" id="contact-map"></div>--}}
 
-{{--        <div class="ps-home-contact__form">--}}
-{{--            <header>--}}
-{{--                <h3>Contact Us</h3>--}}
+    {{--        <div class="ps-home-contact__form">--}}
+    {{--            <header>--}}
+    {{--                <h3>Contact Us</h3>--}}
 
-{{--                <p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>--}}
-{{--            </header>--}}
+    {{--                <p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>--}}
+    {{--            </header>--}}
 
-{{--            <footer>--}}
-{{--                <form action="https://nouthemes.net/html/trueshoes/product-listing.html" method="post">--}}
-{{--                    <div class="form-group"><label>Name<span>*</span></label> <input class="form-control" type="text"/>--}}
-{{--                    </div>--}}
+    {{--            <footer>--}}
+    {{--                <form action="https://nouthemes.net/html/trueshoes/product-listing.html" method="post">--}}
+    {{--                    <div class="form-group"><label>Name<span>*</span></label> <input class="form-control" type="text"/>--}}
+    {{--                    </div>--}}
 
-{{--                    <div class="form-group"><label>Email<span>*</span></label> <input class="form-control"--}}
-{{--                                                                                      type="email"/>--}}
-{{--                    </div>--}}
+    {{--                    <div class="form-group"><label>Email<span>*</span></label> <input class="form-control"--}}
+    {{--                                                                                      type="email"/>--}}
+    {{--                    </div>--}}
 
-{{--                    <div class="form-group"><label>Your message<span>*</span></label><textarea class="form-control"--}}
-{{--                                                                                               rows="4"></textarea>--}}
-{{--                    </div>--}}
+    {{--                    <div class="form-group"><label>Your message<span>*</span></label><textarea class="form-control"--}}
+    {{--                                                                                               rows="4"></textarea>--}}
+    {{--                    </div>--}}
 
-{{--                    <div class="form-group text-center">--}}
-{{--                        <button class="ps-btn">Send Message<i class="ps-icon-next"></i></button>--}}
-{{--                    </div>--}}
-{{--                </form>--}}
-{{--            </footer>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+    {{--                    <div class="form-group text-center">--}}
+    {{--                        <button class="ps-btn">Send Message<i class="ps-icon-next"></i></button>--}}
+    {{--                    </div>--}}
+    {{--                </form>--}}
+    {{--            </footer>--}}
+    {{--        </div>--}}
+    {{--    </div>--}}
 @endsection
