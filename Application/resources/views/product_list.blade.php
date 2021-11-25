@@ -33,7 +33,7 @@
                 <div class="ps-product__filter">
                     <select id="sortProduct" class="ps-select selectpicker">
                         <option value="name">Name</option>
-                        <option value="price">Price</option>
+                        <option value="salePrice">Price</option>
                     </select>
                 </div>
 
@@ -93,8 +93,8 @@
                                     <div class="ps-shoe__detail"><a class="ps-shoe__name"
                                                                     href="{{route('product_detail')}}?productId={{$p->productId}}">{{$p->name}}</a>
                                         <p class="ps-shoe__categories">
-                                            <a href="{{route('product_list')}}?categoryId={{$p->categoryId}}">{{$p->categoryName}}</a>,
-                                            <a href="{{route('product_list')}}?categoryId=1&brandId={{$p->brandId}}">{{$p->brandName}}</a>
+                                            <a href="{{route('product_list')}}?categoryId={{$p->categoryId}}">{{$p->category->name}}</a>,
+                                            <a href="{{route('product_list')}}?categoryId=1&brandId={{$p->brandId}}">{{$p->brand->name}}</a>
                                         </p>
                                         @if($p->discount != null)
                                             <span class="ps-shoe__price"><del>$ {{$p->price}}</del> $ {{$p->salePrice}}</span>
@@ -162,29 +162,29 @@
 {{--                        </div>--}}
 {{--                    </aside>--}}
                     <div class="ps-sticky desktop">
-{{--                        <aside class="ps-widget--sidebar">--}}
-{{--                            <div class="ps-widget__header">--}}
-{{--                                <h3>Size</h3>--}}
-{{--                            </div>--}}
-{{--                            <div class="ps-widget__content">--}}
-{{--                                <table class="table ps-table--size">--}}
-{{--                                    <tbody>--}}
-{{--                                    <?php $countSize = 0;?>--}}
-{{--                                    @for($i = 0;$i < ($size->count()/5);$i++)--}}
-{{--                                        <tr>--}}
-{{--                                            @for($j = 0;$j < 5;$j++)--}}
-{{--                                                @if($countSize < $size->count())--}}
-{{--                                                    <td class="searchSize"--}}
-{{--                                                        data-size="{{$size[$countSize]['sizeId']}}">{{$size[$countSize]['number']}}</td>--}}
-{{--                                                    <?php $countSize++;?>--}}
-{{--                                                @endif--}}
-{{--                                            @endfor--}}
-{{--                                        </tr>--}}
-{{--                                    @endfor--}}
-{{--                                    </tbody>--}}
-{{--                                </table>--}}
-{{--                            </div>--}}
-{{--                        </aside>--}}
+                        <aside class="ps-widget--sidebar">
+                            <div class="ps-widget__header">
+                                <h3>Size</h3>
+                            </div>
+                            <div class="ps-widget__content">
+                                <table class="table ps-table--size">
+                                    <tbody>
+                                    <?php $countSize = 0;?>
+                                    @for($i = 0;$i < ($size->count()/5);$i++)
+                                        <tr>
+                                            @for($j = 0;$j < 5;$j++)
+                                                @if($countSize < $size->count())
+                                                    <td class="searchSize"
+                                                        data-size="{{$size[$countSize]['sizeId']}}">{{$size[$countSize]['number']}}</td>
+                                                    <?php $countSize++;?>
+                                                @endif
+                                            @endfor
+                                        </tr>
+                                    @endfor
+                                    </tbody>
+                                </table>
+                            </div>
+                        </aside>
                         <aside class="ps-widget--sidebar">
                             <div class="ps-widget__header">
                                 <h3>Color</h3>
@@ -337,35 +337,35 @@
         }
         ;
 
-        // const listSearchSize = new Array();
-        // $(".searchSize").click(function (e) {
-        //     e.preventDefault();
-        //     if (!$(this).hasClass("active")) {
-        //         $(this).addClass("active");
-        //         if (!listSearchSize.includes($(this).data("size"))) {
-        //             listSearchSize.push($(this).data("size"));
-        //         }
-        //     } else {
-        //         $(this).removeClass("active");
-        //         if (listSearchSize.includes($(this).data("size"))) {
-        //             listSearchSize.splice(listSearchSize.indexOf($(this).data("size")), 1);
-        //         }
-        //     }
-        // });
-        //
-        // var sizeParam = queryParams.get('sizeId');
-        // if (sizeParam) {
-        //     var size = $(".searchSize");
-        //     $.each(size, function () {
-        //         if (sizeParam.includes($(this).data('size'))) {
-        //             $(this).addClass("active");
-        //             if (!listSearchSize.includes($(this).data("size"))) {
-        //                 listSearchSize.push($(this).data("size"));
-        //             }
-        //         }
-        //     });
-        // }
-        // ;
+        const listSearchSize = new Array();
+        $(".searchSize").click(function (e) {
+            e.preventDefault();
+            if (!$(this).hasClass("active")) {
+                $(this).addClass("active");
+                if (!listSearchSize.includes($(this).data("size"))) {
+                    listSearchSize.push($(this).data("size"));
+                }
+            } else {
+                $(this).removeClass("active");
+                if (listSearchSize.includes($(this).data("size"))) {
+                    listSearchSize.splice(listSearchSize.indexOf($(this).data("size")), 1);
+                }
+            }
+        });
+
+        var sizeParam = queryParams.get('sizeId');
+        if (sizeParam) {
+            var size = $(".searchSize");
+            $.each(size, function () {
+                if (sizeParam.includes($(this).data('size'))) {
+                    $(this).addClass("active");
+                    if (!listSearchSize.includes($(this).data("size"))) {
+                        listSearchSize.push($(this).data("size"));
+                    }
+                }
+            });
+        }
+        ;
 
         const listSearchColor = new Array();
         $(".searchColor").click(function (e) {
@@ -402,7 +402,7 @@
             queryParams.set("page", 1);
             queryParams.set("categoryId", listSearchCate);
             queryParams.set("brandId", listSearchBrand);
-            // queryParams.set("sizeId", listSearchSize);
+            queryParams.set("sizeId", listSearchSize);
             queryParams.set("colorId", listSearchColor);
             history.replaceState(null, null, "?" + queryParams.toString());
             window.location.href = window.location.href;

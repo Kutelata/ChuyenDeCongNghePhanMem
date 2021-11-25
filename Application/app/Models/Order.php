@@ -17,6 +17,10 @@ class Order extends Model
         'total',
         'orderDate',
         'userId',
+        'fullname',
+        'phone',
+        'address',
+        'notes',
     ];
     public function user(){
         return $this->belongsTo(User::class,'userId','userId');

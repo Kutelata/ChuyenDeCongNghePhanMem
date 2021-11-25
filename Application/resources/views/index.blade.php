@@ -295,75 +295,6 @@
         </div>
     </div>
 
-    <!-- <div class="ps-section ps-home-blog pt-80 pb-80">
-            <div class="ps-container">
-                <div class="ps-section__header mb-50">
-                    <h2 class="ps-section__title">Our Story</h2>
-
-                    <div class="ps-section__action"><a class="ps-morelink text-uppercase" href="#">View all post<i
-								class="fa fa-long-arrow-right"></i></a>
-                    </div>
-                </div>
-
-                <div class="ps-section__content">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                            <div class="ps-post">
-                                <div class="ps-post__thumbnail"><img alt="" src="{{asset('resources/images/blog/1.jpg')}}" /></div>
-
-                                <div class="ps-post__content"><a class="ps-post__title" href="blog-detail.html">An
-										Inside Look at the Breaking2 Kit</a>
-
-                                    <p class="ps-post__meta"><span>By:<a class="mr-5" href="blog.html">Alena
-												Studio</a></span> -<span class="ml-5">Jun 10, 2017</span></p>
-
-                                    <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further&hellip;
-                                    </p>
-                                    <a class="ps-morelink" href="blog-detail.html">Read more<i
-											class="fa fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                            <div class="ps-post">
-                                <div class="ps-post__thumbnail"><img alt="" src="{{asset('resources/images/blog/2.jpg')}}" /></div>
-
-                                <div class="ps-post__content"><a class="ps-post__title" href="blog-detail.html">Unpacking the Breaking2 Race Strategy</a>
-
-                                    <p class="ps-post__meta"><span>By:<a class="mr-5" href="blog.html">Alena
-												Studio</a></span> -<span class="ml-5">Jun 10, 2017</span></p>
-
-                                    <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further&hellip;
-                                    </p>
-                                    <a class="ps-morelink" href="blog-detail.html">Read more<i
-											class="fa fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-                            <div class="ps-post">
-                                <div class="ps-post__thumbnail"><img alt="" src="{{asset('resources/images/blog/3.jpg')}}" /></div>
-
-                                <div class="ps-post__content"><a class="ps-post__title" href="blog-detail.html">Nike&rsquo;s Latest Football Cleat Breaks the Mold</a>
-
-                                    <p class="ps-post__meta"><span>By:<a class="mr-5" href="blog.html">Alena
-												Studio</a></span> -<span class="ml-5">Jun 10, 2017</span></p>
-
-                                    <p>Leverage agile frameworks to provide a robust synopsis for high level overviews. Iterative approaches to corporate strategy foster collaborative thinking to further&hellip;
-                                    </p>
-                                    <a class="ps-morelink" href="blog-detail.html">Read more<i
-											class="fa fa-long-arrow-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
-
     <div class="ps-home-partner">
         <div class="ps-container">
             <div class="owl-slider" data-owl-auto="true" data-owl-dots="false" data-owl-duration="1000"
@@ -381,35 +312,4 @@
             </div>
         </div>
     </div>
-
-    {{--    <div class="ps-home-contact">--}}
-    {{--        <div data-address="New York, NY" data-title="BAKERY LOCATION!" data-zoom="17" id="contact-map"></div>--}}
-
-    {{--        <div class="ps-home-contact__form">--}}
-    {{--            <header>--}}
-    {{--                <h3>Contact Us</h3>--}}
-
-    {{--                <p>Learn about our company profile, communityimpact, sustainable motivation, and more.</p>--}}
-    {{--            </header>--}}
-
-    {{--            <footer>--}}
-    {{--                <form action="https://nouthemes.net/html/trueshoes/product-listing.html" method="post">--}}
-    {{--                    <div class="form-group"><label>Name<span>*</span></label> <input class="form-control" type="text"/>--}}
-    {{--                    </div>--}}
-
-    {{--                    <div class="form-group"><label>Email<span>*</span></label> <input class="form-control"--}}
-    {{--                                                                                      type="email"/>--}}
-    {{--                    </div>--}}
-
-    {{--                    <div class="form-group"><label>Your message<span>*</span></label><textarea class="form-control"--}}
-    {{--                                                                                               rows="4"></textarea>--}}
-    {{--                    </div>--}}
-
-    {{--                    <div class="form-group text-center">--}}
-    {{--                        <button class="ps-btn">Send Message<i class="ps-icon-next"></i></button>--}}
-    {{--                    </div>--}}
-    {{--                </form>--}}
-    {{--            </footer>--}}
-    {{--        </div>--}}
-    {{--    </div>--}}
 @endsection

@@ -40,12 +40,16 @@ class ProductController extends Controller
             $colorId = null;
         }
 
+        $productId = [];
         if ($request->sizeId != null) {
             $sizeId = array_map('intval', explode(",", $request->sizeId));
+            $productIdBySize = ProductSize::select('productId')->whereIn('sizeId', $sizeId)->groupby('productId')->get();
+            foreach ($productIdBySize as $pibs) {
+                $productId[] = ($pibs->productId);
+            }
         } else {
             $sizeId = null;
         }
-
 
         $orderBy = $request->orderBy;
         $sortOrder = $request->sortOrder;
@@ -59,40 +63,71 @@ class ProductController extends Controller
         if ($categoryId == 1) {
             if ($brandId != null) {
                 if ($colorId != null) {
-                    $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                    if ($sizeId != null) {
+                        $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->whereIn('productId', $productId);
+                    } else {
+                        $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId);
+                    }
                 } else {
-                    $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('brandId', $brandId);
                 }
             } elseif ($colorId != null) {
-                $product = Product::where('categoryId', '!=', 0)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                if ($sizeId != null) {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('colorId', $colorId)->whereIn('productId', $productId);
+                } else {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('colorId', $colorId);
+                }
+            } elseif ($sizeId != null) {
+                if ($brandId != null) {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('productId', $productId)->whereIn('brandId', $brandId);
+                } else {
+                    $product = Product::where('categoryId', '!=', 0)->whereIn('productId', $productId);
+                }
             } else {
-                $product = Product::where('categoryId', '!=', 0)->orderBy($orderBy, $sortOrder)->paginate(10);
+                $product = Product::where('categoryId', '!=', 0);
             }
         } else {
             if ($brandId != null) {
                 if ($colorId != null) {
-                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                    if ($sizeId != null) {
+                        $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId)->whereIn('productId', $productId);
+                    } else {
+                        $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->whereIn('colorId', $colorId);
+                    }
                 } else {
-                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('brandId', $brandId);
                 }
             } elseif ($colorId != null) {
-                $product = Product::where('categoryId', '=', $categoryId)->whereIn('colorId', $colorId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                if ($sizeId != null) {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('colorId', $colorId)->whereIn('productId', $productId);
+                } else {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('colorId', $colorId);
+                }
+            } elseif ($sizeId != null) {
+                if ($brandId != null) {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('productId', $productId)->whereIn('brandId', $brandId);
+                } else {
+                    $product = Product::where('categoryId', '=', $categoryId)->whereIn('productId', $productId);
+                }
             } else {
-                $product = Product::where('categoryId', '=', $categoryId)->orderBy($orderBy, $sortOrder)->paginate(10);
+                $product = Product::where('categoryId', '!=', 0);
             }
         }
+        $product = $product->orderBy($orderBy, $sortOrder)->paginate(10);
         return view('product_list', compact('product'));
     }
 
-    public function AddCart(Request $request, $id)
+    public function AddCart(Request $request, $id, $sizeId)
     {
         $product = Product::where('productId', '=', $id)->first();
+        $size = DB::table('productsize as ps')->select('s.number', 's.sizeId')
+            ->join('size as s', 'ps.sizeId', '=', 's.sizeId')
+            ->where('ps.productId', '=', $id)->where('s.sizeId', '=', $sizeId)->first();
         if ($product != null) {
             $oldCart = Session('Cart') ? Session('Cart') : null;
             $newCart = new Cart($oldCart);
-            $newCart->AddCart($product, $id);
+            $newCart->AddCart($product, $id, $size);
             $request->session()->put('Cart', $newCart);
-
         }
         return view('cartajax');
     }
@@ -119,7 +154,6 @@ class ProductController extends Controller
 
     public function DeleteListItemCart(Request $request, $id)
     {
-
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
         $newCart->DeleteItemCart($id);
@@ -129,13 +163,11 @@ class ProductController extends Controller
             $request->session()->forget('Cart');
 
         }
-
         return view('list-cart');
     }
 
     public function SaveListItemCart(Request $request, $id, $quantity)
     {
-
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
         $newCart->UpdateItemCart($id, $quantity);
@@ -153,16 +185,29 @@ class ProductController extends Controller
 
     public function post_checkout(Request $request)
     {
+        foreach (session('Cart')->products as $c) {
+            $number = DB::table('size')->select('sizeId')->where('number', '=', intval($c['size']))->first();
+            $quantity = DB::table('productsize')->select('quantity')->where('sizeId', '=', $number->sizeId)
+                ->where('productId', '=', intval($c['productInfo']->productId))->first();
+            $result3 = [
+                'quantity' => $quantity->quantity - intval($c['quantity']),
+            ];
+            ProductSize::where("productId", $c['productInfo']->productId)->where("sizeId", $number->sizeId)->update($result3);
+        }
         $result = [
             'total' => $request['total'],
             'orderDate' => date('Y-m-d H:i:s'),
             'userId' => $request['userId'],
+            'fullname' => $request['fullname'],
+            'phone' => $request['phone'],
+            'address' => $request['address'],
+            'notes' => $request['notes']
         ];
         $order = Order::create($result);
-        $r = $order->id;
+        $orderid = $order->id;
         foreach (session('Cart')->products as $c) {
             $result2 = [
-                'orderId' => $r,
+                'orderId' => $orderid,
                 'productId' => $c['productInfo']->productId,
                 'productName' => $c['productInfo']->name,
                 'productPrice' => $c['productInfo']->price,
@@ -214,8 +259,12 @@ class ProductController extends Controller
     public function product_detail(Request $request)
     {
         if ($request->productId != null) {
+            $psize = DB::table('productsize as ps')->select('s.sizeId as sizeId', 's.number as number')
+                ->join('size as s', 'ps.sizeId', '=', 's.sizeId')
+                ->where('ps.productId', '=', $request->productId)->get();
             $product = Product::where('productId', '=', $request->productId)->first();
-            return view('product_detail', compact('product'));
+            $discountProduct = Product::all()->sortByDesc('discount')->take(5);
+            return view('product_detail', compact('product', 'psize', 'discountProduct'));
         } else {
             return redirect()->back();
         }

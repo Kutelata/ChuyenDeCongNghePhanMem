@@ -21,7 +21,7 @@
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 ">
                         <div class="ps-checkout__billing">
                             <h3>Billing Detail</h3>
-                            <input  hidden class="form-control" name="userId" value="{{Session::get('user')->userId}}">
+                            <input hidden class="form-control" name="userId" value="{{Session::get('user')->userId}}">
                             <div class="form-group form-group--inline">
                                 <label>First Name<span>*</span>
                                 </label>
@@ -87,10 +87,14 @@
                                     <tbody>
                                     @if(Session::has('Cart')!=null)
                                         @foreach(Session::get('Cart')->products as $item)
-                                            <input  hidden class="form-control" name="productId" value="{{$item['productInfo']->productId}}">
-                                            <input  hidden class="form-control" name="productName" value="{{$item['productInfo']->name}}">
-                                            <input  hidden class="form-control" name="quantity" value="{{$item['quantity']}}">
-                                            <input  hidden class="form-control" name="productPrice" value=" {{$item['price']}}">
+                                            <input hidden class="form-control" name="productId"
+                                                   value="{{$item['productInfo']->productId}}">
+                                            <input hidden class="form-control" name="productName"
+                                                   value="{{$item['productInfo']->name}}">
+                                            <input hidden class="form-control" name="quantity"
+                                                   value="{{$item['quantity']}}">
+                                            <input hidden class="form-control" name="productPrice"
+                                                   value=" {{$item['price']}}">
 
 
                                             <tr>
@@ -104,9 +108,10 @@
                                         {{--                                    </tr>--}}
                                         <tr>
                                             <td>Order Total</td>
-                                            <td >${{(Session::get('Cart')->totalPrice)}}</td>
+                                            <td>${{(Session::get('Cart')->totalPrice)}}</td>
                                         </tr>
-                                        <input  hidden class="form-control" name="total" value="{{(Session::get('Cart')->totalPrice)}}">
+                                        <input hidden class="form-control" name="total"
+                                               value="{{(Session::get('Cart')->totalPrice)}}">
                                     </tbody>
                                     @endif
                                 </table>
@@ -127,12 +132,16 @@
                                         <label for="rdo02">Paypal</label>
                                     </div>
                                     <ul class="ps-payment-method">
-                                        <li><a href="#"><img src="{{asset('resources/images/payment/1.png')}}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{asset('resources/images/payment/2.png')}}" alt=""></a></li>
-                                        <li><a href="#"><img src="{{asset('resources/images/payment/1.png')}}" alt=""></a></li>
+                                        <li><a href="#"><img src="{{asset('resources/images/payment/1.png')}}"
+                                                             alt=""></a></li>
+                                        <li><a href="#"><img src="{{asset('resources/images/payment/2.png')}}"
+                                                             alt=""></a></li>
+                                        <li><a href="#"><img src="{{asset('resources/images/payment/1.png')}}"
+                                                             alt=""></a></li>
                                     </ul>
                                     <button type="submit" onclick="popup()" class="ps-btn ps-btn--fullwidth">
-                                        <a href="{{route('checkout_success')}}">Place Order</a><i class="ps-icon-next"></i>
+                                        <a href="{{route('checkout_success')}}">Place Order</a><i
+                                            class="ps-icon-next"></i>
                                     </button>
 
                                 </div>
@@ -140,7 +149,7 @@
                         </div>
                         <div class="ps-shipping">
                             <h3>FREE SHIPPING</h3>
-                            <p>YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br> <a href="#"> Singup </a> for free shipping on
+                            <p>YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br> <a href="{{route('register')}}"> Signup </a> for free shipping on
                                 every order, every time.</p>
                         </div>
                     </div>
@@ -149,10 +158,10 @@
         </div>
     </div>
     <script>
-        function popup(){
+        function popup() {
                 @if(Session::has('Cart')==null){
                 alertify
-                    .alert("This is an alert dialog.", function(){
+                    .alert("This is an alert dialog.", function () {
                         alertify.message('Order succeed!Thank you for shopping with us');
                     });
             }

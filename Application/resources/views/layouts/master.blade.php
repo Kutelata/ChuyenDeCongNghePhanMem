@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="format-detection" content="telephone=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
+
     <link href="{{asset('resources/apple-touch-icon.png')}}" rel="apple-touch-icon"/>
     <link href="{{asset('resources/favicon.png')}}" rel="icon"/>
 
@@ -35,14 +36,11 @@
     <!-- Custom-->
     <link href="{{asset('resources/css/style.css')}}" rel="stylesheet"/>
     <link href="{{asset('resources/css/myConfig.css')}}" rel="stylesheet"/>
-    <!--HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries-->
-    <!--WARNING: Respond.js doesn't work if you view the page via file://-->
-    <!--[if lt IE 9]>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     @yield('css')
 </head>
-
 
 <body class="ps-loading">
 <div class="header--sidebar"></div>
@@ -68,10 +66,8 @@
                                     <li><a href="{{route('logout')}}">Log out</a></li>
                                 </ul>
                             </div>
-
                         @else
                             <a href="{{route('login')}}"> Login &amp; Register</a>
-
                         @endif
                     </div>
                 </div>
@@ -105,7 +101,6 @@
                                     <div class="mega-wrap">
                                         <div class="mega-column">
                                             <h4 class="mega-heading">Brand</h4>
-
                                             <ul class="mega-item">
                                                 @foreach($brand as $b)
                                                     <li>
@@ -116,7 +111,6 @@
                                         </div>
                                         <div class="mega-column">
                                             <h4 class="mega-heading">Color</h4>
-
                                             <ul class="mega-item">
                                                 @foreach($color as $co)
                                                     <li>
@@ -147,37 +141,33 @@
                     @endisset
                     <button id="btnSearchProduct"><i class="ps-icon-search"></i></button>
                 </form>
-
-                <div class="ps-cart">
-                    <a class="ps-cart__toggle" href="#">
+                <div class="ps-cart" id="change-item-cart">
+                    <a class="ps-cart__toggle" href="{{route('ViewListCart')}}">
                         <span>
                             @if(Session::has('Cart')!=null)
                                 <i id="total-quantity">{{Session::get('Cart')->totalQuantity}}</i>
                             @else
-
                                 <i id="total-quantity">0</i>
-
                             @endif
                         </span>
-
-                        <i class="ps-icon-shopping-cart"></i></a>
+                        <i class="ps-icon-shopping-cart"></i>
+                    </a>
                     <div class="ps-cart__listing">
-                        <div class="ps-cart__content" id="change-item-cart">
+                        <div class="ps-cart__content" >
                             @if(Session::has('Cart')!=null)
                                 @foreach(Session::get('Cart')->products as $item)
                                     <div class="ps-cart-item">
                                         <a class="ps-cart-item__close" data-id="{{$item['productInfo']->productId}}"
                                            href="#"></a>
                                         <div class="ps-cart-item__thumbnail">
-                                            <a href="product-detail.html"></a><img
+                                            <a href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}"></a><img
                                                 src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg"
                                                 alt="">
                                         </div>
                                         <div class="ps-cart-item__content">
-                                            <a class="ps-cart-item__title"
-                                               href="product-detail.html">{{$item['productInfo']->name}}</a>
+                                            <a class="ps-cart-item__title" href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}">{{$item['productInfo']->name}}</a>
                                             <p>
-                                                <span>Quantity:{{$item['quantity']}}</span><span>Total:<i>${{$item['price']}}</i></span>
+                                                <span>Size:{{$item['size']}}</span><span>Quantity:{{$item['quantity']}}</span>
                                             </p>
                                         </div>
                                     </div>
@@ -197,9 +187,8 @@
                         </div>
                     </div>
                 </div>
+                <div class="menu-toggle"></div>
             </div>
-
-            <div class="menu-toggle"></div>
         </div>
     </nav>
 </header>

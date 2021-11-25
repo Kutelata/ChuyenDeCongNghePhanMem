@@ -27,13 +27,13 @@
                     </div>
                 @endif
                 @if(Session::has('success'))
-                <div class="alert alert-success">
+                    <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <p>{{Session::get('success')}}</p>
                     </div>
                 @endif
                 @if(Session::has('error'))
-                <div class="alert alert-danger">
+                    <div class="alert alert-danger">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <p>{{Session::get('error')}}</p>
                     </div>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <div class="fxt-transformY-50 fxt-transition-delay-3">
-                            <input type="password" class="form-control" name="password" placeholder="Password" required="required" >
+                            <input type="password" class="form-control" name="password" placeholder="Password" required="required" minlength="8">
                         </div>
                     </div>
                     <div class="form-group">
