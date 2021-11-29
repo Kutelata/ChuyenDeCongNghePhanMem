@@ -37,10 +37,10 @@ Route::get('/checkout','ProductController@checkout')->name('checkout');
 
 //cart and checkout
 Route::get('/Add-Cart/{id}/{sizeId}','ProductController@AddCart')->name('AddCart');
-Route::get('/Delete-Item-Cart/{id}','ProductController@DeleteItemCart')->name('DeleteItemCart');
-Route::get('/Delete-Item-List-Cart/{id}','ProductController@DeleteListItemCart')->name('DeleteItemListCart');
+Route::get('/Delete-Item-Cart/{id}/{sizeid}','ProductController@DeleteItemCart')->name('DeleteItemCart');
+Route::get('/Delete-Item-List-Cart/{id}/{sizeid}','ProductController@DeleteListItemCart')->name('DeleteItemListCart');
 Route::get('/List-Carts','ProductController@ViewListCart')->name('ViewListCart');
-Route::get('/Save-Item-List-Cart/{id}/{quantity}','ProductController@SaveListItemCart')->name('UpdateListCart');
+Route::get('/Save-Item-List-Cart/{id}/{quantity}/{sizeid}','ProductController@SaveListItemCart')->name('UpdateListCart');
 Route::get('/Checkout/','ProductController@Checkout')->name('checkout');
 Route::post('/Checkout/','ProductController@post_checkout')->name('checkout_success');
 

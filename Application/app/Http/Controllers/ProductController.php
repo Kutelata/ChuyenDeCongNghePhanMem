@@ -132,18 +132,17 @@ class ProductController extends Controller
         return view('cartajax');
     }
 
-    public function DeleteItemCart(Request $request, $id)
+    public function DeleteItemCart(Request $request, $id, $sizeid)
     {
-
+        $array_id = strval($id) . strval($sizeid);
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->DeleteItemCart($id);
+        $newCart->DeleteItemCart($array_id);
         if (Count($newCart->products) > 0) {
             $request->session()->put('Cart', $newCart);
         } else {
             $request->session()->forget('Cart');
         }
-
         return view('cartajax');
     }
 
@@ -152,25 +151,26 @@ class ProductController extends Controller
         return view('Cart');
     }
 
-    public function DeleteListItemCart(Request $request, $id)
+    public function DeleteListItemCart(Request $request, $id, $sizeid)
     {
+        $array_id = strval($id) . strval($sizeid);
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->DeleteItemCart($id);
+        $newCart->DeleteItemCart($array_id);
         if (Count($newCart->products) > 0) {
             $request->session()->put('Cart', $newCart);
         } else {
             $request->session()->forget('Cart');
-
         }
         return view('list-cart');
     }
 
-    public function SaveListItemCart(Request $request, $id, $quantity)
+    public function SaveListItemCart(Request $request, $id, $quantity, $sizeid)
     {
+        $array_id = strval($id) . strval($sizeid);
         $oldCart = Session('Cart') ? Session('Cart') : null;
         $newCart = new Cart($oldCart);
-        $newCart->UpdateItemCart($id, $quantity);
+        $newCart->UpdateItemCart($array_id, $quantity);
         $request->session()->put('Cart', $newCart);
         return view('list-cart');
     }
@@ -211,7 +211,8 @@ class ProductController extends Controller
                 'productId' => $c['productInfo']->productId,
                 'productName' => $c['productInfo']->name,
                 'productPrice' => $c['productInfo']->price,
-                'quantity' => $c['quantity']
+                'quantity' => $c['quantity'],
+                'sizeNumber'=>$c['size'],
             ];
             $orderdone = Orderdetail::create($result2);
         }

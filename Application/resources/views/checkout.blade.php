@@ -1,17 +1,6 @@
 @extends('layouts.master')
 @section('title','Shoe - Checkout')
-{{--    </script>--}}
-<!-- JavaScript -->
-<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 
-<!-- CSS -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-<!-- Default theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
-<!-- Semantic UI theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
-<!-- Bootstrap theme -->
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 @section('main')
     <div class="ps-checkout pt-80 pb-80">
         <div class="ps-container">
@@ -23,51 +12,28 @@
                             <h3>Billing Detail</h3>
                             <input hidden class="form-control" name="userId" value="{{Session::get('user')->userId}}">
                             <div class="form-group form-group--inline">
-                                <label>First Name<span>*</span>
+                                <label>Full Name<span>*</span>
                                 </label>
-                                <input class="form-control" type="text">
+                                <input class="form-control" name="fullname" value="{{Session::get('user')->name}}"
+                                       required type="text">
                             </div>
                             <div class="form-group form-group--inline">
-                                <label>Last Name<span>*</span>
+                                <label>Contact number<span>*</span>
                                 </label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group form-group--inline">
-                                <label>Company Name<span>*</span>
-                                </label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group form-group--inline">
-                                <label>Email Address<span>*</span>
-                                </label>
-                                <input class="form-control" type="email">
-                            </div>
-                            <div class="form-group form-group--inline">
-                                <label>Company Name<span>*</span>
-                                </label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group form-group--inline">
-                                <label>Phone<span>*</span>
-                                </label>
-                                <input class="form-control" type="text">
+                                <input name="phone" class="form-control" value="{{Session::get('user')->phone}}"
+                                       required type="text">
                             </div>
                             <div class="form-group form-group--inline">
                                 <label>Address<span>*</span>
                                 </label>
-                                <input class="form-control" type="text">
-                            </div>
-                            <div class="form-group">
-                                <div class="ps-checkbox">
-                                    <input class="form-control" type="checkbox" id="cb01">
-                                    <label for="cb01">Create an account?</label>
-                                </div>
+                                <input name="address" class="form-control" value="{{Session::get('user')->address}}"
+                                       required type="text">
                             </div>
                             <h3 class="mt-40"> Addition information</h3>
                             <div class="form-group form-group--inline textarea">
                                 <label>Order Notes</label>
-                                <textarea class="form-control" rows="5"
-                                          placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                <input class="form-control" name="notes"
+                                       placeholder="Notes about your order e.g special notes for delivery" type="text">
                             </div>
                         </div>
                     </div>
@@ -95,17 +61,14 @@
                                                    value="{{$item['quantity']}}">
                                             <input hidden class="form-control" name="productPrice"
                                                    value=" {{$item['price']}}">
-
-
+                                            <input hidden class="form-control" name="size-number"
+                                                   value=" {{$item['size']}}">
                                             <tr>
-                                                <td>{{$item['productInfo']->name}} x{{$item['quantity']}}</td>
+                                                <td>{{$item['productInfo']->name}} size {{$item['size']}}
+                                                    x{{$item['quantity']}}</td>
                                                 <td name="">${{$item['price']}}</td>
                                             </tr>
                                         @endforeach
-                                        {{--                                    <tr>--}}
-                                        {{--                                        <td>Card Subtitle</td>--}}
-                                        {{--                                        <td>$300.00</td>--}}
-                                        {{--                                    </tr>--}}
                                         <tr>
                                             <td>Order Total</td>
                                             <td>${{(Session::get('Cart')->totalPrice)}}</td>
@@ -149,7 +112,8 @@
                         </div>
                         <div class="ps-shipping">
                             <h3>FREE SHIPPING</h3>
-                            <p>YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br> <a href="{{route('register')}}"> Signup </a> for free shipping on
+                            <p>YOUR ORDER QUALIFIES FOR FREE SHIPPING.<br> <a href="{{route('register')}}"> Signup </a>
+                                for free shipping on
                                 every order, every time.</p>
                         </div>
                     </div>
@@ -157,15 +121,4 @@
             </form>
         </div>
     </div>
-    <script>
-        function popup() {
-                @if(Session::has('Cart')==null){
-                alertify
-                    .alert("This is an alert dialog.", function () {
-                        alertify.message('Order succeed!Thank you for shopping with us');
-                    });
-            }
-            @endif
-        }
-    </script>
 @endsection

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 08, 2021 at 01:16 PM
+-- Generation Time: Nov 29, 2021 at 05:34 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 7.4.23
 
@@ -96,8 +96,22 @@ CREATE TABLE `order` (
   `orderId` int(11) NOT NULL,
   `total` float DEFAULT NULL,
   `orderDate` datetime DEFAULT NULL,
-  `userId` int(11) DEFAULT NULL
+  `userId` int(11) DEFAULT NULL,
+  `fullname` varchar(100) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `notes` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `order`
+--
+
+INSERT INTO `order` (`orderId`, `total`, `orderDate`, `userId`, `fullname`, `phone`, `address`, `notes`) VALUES
+(8, 862.4, '2021-11-29 15:18:53', 1, 'long', '0832536199', 'Hoang Hoa Tham', NULL),
+(9, 862.4, '2021-11-29 15:19:37', 1, 'long', '0832536199', 'Hoang Hoa Tham', NULL),
+(10, 114.4, '2021-11-29 16:32:21', 1, 'long', '0832536199', 'Hoang Hoa Tham', NULL),
+(11, 96.8, '2021-11-29 16:33:50', 1, 'long', '0832536199', 'Hoang Hoa Tham', NULL);
 
 -- --------------------------------------------------------
 
@@ -106,12 +120,24 @@ CREATE TABLE `order` (
 --
 
 CREATE TABLE `orderdetail` (
+  `orderDetailId` int(11) NOT NULL,
   `orderId` int(11) NOT NULL,
   `productId` int(11) NOT NULL,
   `productName` varchar(50) DEFAULT NULL,
   `productPrice` float DEFAULT NULL,
-  `quantity` int(11) DEFAULT NULL
+  `quantity` int(11) DEFAULT NULL,
+  `sizeNumber` float DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orderdetail`
+--
+
+INSERT INTO `orderdetail` (`orderDetailId`, `orderId`, `productId`, `productName`, `productPrice`, `quantity`, `sizeNumber`) VALUES
+(1, 9, 17, 'Supernova', 123.2, 4, NULL),
+(2, 9, 17, 'Supernova', 123.2, 3, NULL),
+(3, 10, 1, 'Air Force One', 114.4, 1, NULL),
+(4, 11, 18, 'Ultraboost 4.0 DNA', 96.8, 1, 43);
 
 -- --------------------------------------------------------
 
@@ -123,6 +149,7 @@ CREATE TABLE `product` (
   `productId` int(11) NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `price` float DEFAULT NULL,
+  `discount` float DEFAULT NULL,
   `salePrice` float DEFAULT NULL,
   `description` varchar(50) DEFAULT NULL,
   `image` varchar(100) DEFAULT NULL,
@@ -136,27 +163,27 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`productId`, `name`, `price`, `salePrice`, `description`, `image`, `createdAt`, `categoryId`, `brandId`, `colorId`) VALUES
-(1, 'Air Force One', 114.4, 0.35, NULL, 'air-force-1-07/air-force-1-07', '2021-11-02 00:00:00', 3, 2, 1),
-(2, 'Forum', 66, 0.3, NULL, 'forum/forum', '2021-11-02 00:00:00', 2, 1, 1),
-(3, 'Stan Smith', 110, NULL, NULL, 'stan_smith/stan_smith', '2021-11-01 00:00:00', 3, 1, 1),
-(4, 'Alphabounce', 70.4, NULL, NULL, 'alphabounce/alphabounce', '2021-10-31 00:00:00', 2, 1, 1),
-(5, 'Ultraboost 21 Tokyo', 154, 0.2, NULL, 'ultraboost_21_tokyo/ultraboost_21_tokyo\r\n', '2021-10-30 02:38:07', 3, 1, 1),
-(6, 'Zx 2k Boost', 162.8, NULL, NULL, 'zx_2k_boost/zx_2k_boost', '2021-10-25 02:48:05', 3, 1, 3),
-(7, 'Alphamagma', 132, NULL, NULL, 'alphamagma/alphamagma', '2021-11-07 16:32:54', 3, 1, 1),
-(8, 'Alphatorsion', 57.2, NULL, NULL, 'alphatorsion/alphatorsion', '2021-11-07 16:37:58', 2, 1, 3),
-(9, 'Speedflow', 66, NULL, NULL, 'speedflow/speedflow', '2021-11-07 16:41:36', 3, 1, 4),
-(10, 'EQ 21', 57.2, NULL, NULL, 'eq21/eq21', '2021-11-08 05:11:26', 3, 1, 3),
-(11, 'X Ghosted 3', 39.6, NULL, NULL, 'x_ghosted_3/x_ghosted_3', '2021-11-08 05:15:55', 2, 2, 4),
-(12, 'Ozelia', 88, NULL, NULL, 'ozelia/ozelia', '2021-11-08 05:32:20', 2, 2, 3),
-(13, 'Superstar', 100, NULL, NULL, 'superstar/superstar', '2021-11-08 05:34:44', 3, 3, 1),
-(14, 'Adizero Ubersonic 4', 140.8, NULL, NULL, 'adizero_ubersonic_4/adizero_ubersonic_4', '2021-11-08 11:01:07', 3, 1, 5),
-(15, 'Pure Boost', 79.2, NULL, NULL, 'pureboost/pureboost', '2021-11-08 11:18:38', 2, 2, 2),
-(16, 'Solematch Bounce', 132, NULL, NULL, 'solematch_bounce/solematch_bounce', '2021-11-08 11:20:42', 3, 3, 2),
-(17, 'Supernova', 123.2, NULL, NULL, 'supernova/supernova', '2021-11-08 12:25:39', 2, 1, 5),
-(18, 'Ultraboost 4.0 DNA', 96.8, NULL, NULL, 'ultraboost_4.0_dna/ultraboost_4.0_dna', '2021-11-08 12:27:03', 3, 2, 2),
-(19, 'Ultraboost 21 A', 154, NULL, NULL, 'ultraboost_21_a/ultraboost_21_a', '2021-11-08 12:29:59', 2, 3, 5),
-(20, 'Ultraboost 21 B', 154, NULL, NULL, 'ultraboost_21_b/ultraboost_21_b', '2021-11-08 12:32:23', 3, 1, 2);
+INSERT INTO `product` (`productId`, `name`, `price`, `discount`, `salePrice`, `description`, `image`, `createdAt`, `categoryId`, `brandId`, `colorId`) VALUES
+(1, 'Air Force One', 114.4, 0.35, 74.36, NULL, 'air-force-1-07/air-force-1-07', '2021-11-02 00:00:00', 3, 2, 1),
+(2, 'Forum', 66, 0.3, 46.2, NULL, 'forum/forum', '2021-11-02 00:00:00', 2, 1, 1),
+(3, 'Stan Smith', 110, 0.25, 82.5, NULL, 'stan_smith/stan_smith', '2021-11-01 00:00:00', 3, 1, 1),
+(4, 'Alphabounce', 70.4, 0.1, 63.36, NULL, 'alphabounce/alphabounce', '2021-10-31 00:00:00', 2, 1, 1),
+(5, 'Ultraboost 21 Tokyo', 154, 0.2, 123.2, NULL, 'ultraboost_21_tokyo/ultraboost_21_tokyo\r\n', '2021-10-30 02:38:07', 3, 1, 1),
+(6, 'Zx 2k Boost', 162.8, 0.15, 138.38, NULL, 'zx_2k_boost/zx_2k_boost', '2021-10-25 02:48:05', 3, 1, 3),
+(7, 'Alphamagma', 132, 0.1, 118.8, NULL, 'alphamagma/alphamagma', '2021-11-07 16:32:54', 3, 1, 1),
+(8, 'Alphatorsion', 57.2, 0.15, 48.62, NULL, 'alphatorsion/alphatorsion', '2021-11-07 16:37:58', 2, 1, 3),
+(9, 'Speedflow', 66, 0.2, 52.8, NULL, 'speedflow/speedflow', '2021-11-07 16:41:36', 3, 1, 4),
+(10, 'EQ 21', 57.2, 0.25, 42.9, NULL, 'eq21/eq21', '2021-11-08 05:11:26', 3, 1, 3),
+(11, 'X Ghosted 3', 39.6, NULL, 39.6, NULL, 'x_ghosted_3/x_ghosted_3', '2021-11-08 05:15:55', 2, 2, 4),
+(12, 'Ozelia', 88, NULL, 88, NULL, 'ozelia/ozelia', '2021-11-08 05:32:20', 2, 2, 3),
+(13, 'Superstar', 100, NULL, 100, NULL, 'superstar/superstar', '2021-11-08 05:34:44', 3, 3, 1),
+(14, 'Adizero Ubersonic 4', 140.8, NULL, 140.8, NULL, 'adizero_ubersonic_4/adizero_ubersonic_4', '2021-11-08 11:01:07', 3, 1, 5),
+(15, 'Pure Boost', 79.2, NULL, 79.2, NULL, 'pureboost/pureboost', '2021-11-08 11:18:38', 2, 2, 2),
+(16, 'Solematch Bounce', 132, NULL, 132, NULL, 'solematch_bounce/solematch_bounce', '2021-11-08 11:20:42', 3, 3, 2),
+(17, 'Supernova', 123.2, NULL, 123.2, NULL, 'supernova/supernova', '2021-11-08 12:25:39', 2, 1, 5),
+(18, 'Ultraboost 4.0 DNA', 96.8, NULL, 96.8, NULL, 'ultraboost_4.0_dna/ultraboost_4.0_dna', '2021-11-08 12:27:03', 3, 2, 2),
+(19, 'Ultraboost 21 A', 154, NULL, 154, NULL, 'ultraboost_21_a/ultraboost_21_a', '2021-11-08 12:29:59', 2, 3, 5),
+(20, 'Ultraboost 21 B', 154, NULL, 154, NULL, 'ultraboost_21_b/ultraboost_21_b', '2021-11-08 12:32:23', 3, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -177,7 +204,7 @@ CREATE TABLE `productsize` (
 INSERT INTO `productsize` (`productId`, `sizeId`, `quantity`) VALUES
 (1, 1, 10),
 (1, 2, 20),
-(1, 3, 15),
+(1, 3, 14),
 (1, 4, 25),
 (2, 2, 10),
 (2, 3, 20),
@@ -239,13 +266,13 @@ INSERT INTO `productsize` (`productId`, `sizeId`, `quantity`) VALUES
 (16, 2, 20),
 (16, 3, 15),
 (16, 4, 25),
-(17, 2, 10),
+(17, 2, 2),
 (17, 3, 20),
-(17, 4, 15),
+(17, 4, 9),
 (17, 5, 25),
-(18, 3, 10),
+(18, 3, 9),
 (18, 4, 20),
-(18, 5, 15),
+(18, 5, 14),
 (18, 6, 25),
 (19, 1, 10),
 (19, 2, 20),
@@ -302,7 +329,9 @@ CREATE TABLE `user` (
 INSERT INTO `user` (`userId`, `name`, `phone`, `gender`, `email`, `password`, `birthday`) VALUES
 (1, 'long', '0832536199', 1, 'long@gmail.com', '1234', '2000-11-23 18:50:50'),
 (2, 'thanh', '0822536189', 1, 'thanh@gmail.com', '1234', '2000-11-22 18:50:50'),
-(3, 'hoang anh', '0836456199', 1, 'hoanganh@gmail.com', '1234', '2000-10-10 18:15:50');
+(3, 'hoang anh', '0836456199', 1, 'hoanganh@gmail.com', '1234', '2000-10-10 18:15:50'),
+(4, 'áda', '0892351799', 1, 'hclong2k121@gmail.com', '12345678', '2021-11-19 00:00:00'),
+(5, 'ádadfsdfd', '0892351799', 0, 'hclong2k@gmail.com123', '43215678', '2021-11-12 00:00:00');
 
 --
 -- Indexes for dumped tables
@@ -337,8 +366,9 @@ ALTER TABLE `order`
 -- Indexes for table `orderdetail`
 --
 ALTER TABLE `orderdetail`
-  ADD PRIMARY KEY (`orderId`,`productId`),
-  ADD KEY `productId` (`productId`);
+  ADD PRIMARY KEY (`orderDetailId`),
+  ADD KEY `productId` (`productId`),
+  ADD KEY `orderdetail_ibfk_2` (`orderId`);
 
 --
 -- Indexes for table `product`
@@ -394,7 +424,13 @@ ALTER TABLE `color`
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `orderId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT for table `orderdetail`
+--
+ALTER TABLE `orderdetail`
+  MODIFY `orderDetailId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -412,7 +448,7 @@ ALTER TABLE `size`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `userId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables

@@ -37,6 +37,15 @@
     <link href="{{asset('resources/css/style.css')}}" rel="stylesheet"/>
     <link href="{{asset('resources/css/myConfig.css')}}" rel="stylesheet"/>
 
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
+    <!-- Bootstrap theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
+
     <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
     <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     @yield('css')
@@ -153,19 +162,20 @@
                         <i class="ps-icon-shopping-cart"></i>
                     </a>
                     <div class="ps-cart__listing">
-                        <div class="ps-cart__content" >
+                        <div class="ps-cart__content">
                             @if(Session::has('Cart')!=null)
                                 @foreach(Session::get('Cart')->products as $item)
                                     <div class="ps-cart-item">
                                         <a class="ps-cart-item__close" data-id="{{$item['productInfo']->productId}}"
-                                           href="#"></a>
+                                           data-sizeid="{{$item['sizeId']}}" href="#"></a>
                                         <div class="ps-cart-item__thumbnail">
                                             <a href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}"></a><img
                                                 src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg"
                                                 alt="">
                                         </div>
                                         <div class="ps-cart-item__content">
-                                            <a class="ps-cart-item__title" href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}">{{$item['productInfo']->name}}</a>
+                                            <a class="ps-cart-item__title"
+                                               href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}">{{$item['productInfo']->name}}</a>
                                             <p>
                                                 <span>Size:{{$item['size']}}</span><span>Quantity:{{$item['quantity']}}</span>
                                             </p>
@@ -365,7 +375,19 @@
 <!-- Custom scripts-->
 <script type="text/javascript" src="{{asset('resources/js/main.js')}}"></script>
 
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+
 @yield('js')
+
+<script>
+    @if(Session::has('message'))
+        alertify.alert("{{Session::get('message')}}").setHeader("SUCCESS");
+    @endif
+
+    @if(Session::has('success'))
+    alertify.alert("{{Session::get('success')}}").setHeader("SUCCESS");
+    @endif
+</script>
 </body>
 
 </html>

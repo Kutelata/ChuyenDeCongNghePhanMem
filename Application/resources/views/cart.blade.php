@@ -23,22 +23,23 @@
                                     <a class="ps-product__preview" href="product-detail.html">
                                         <img class="mr-15" style="width:100px !important;"
                                              src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg"
-                                             alt=""> {{$item['productInfo']->name}}
+                                             alt=""> {{$item['productInfo']->name}} {{$item['size']}}
                                     </a>
                                 </td>
                                 <td>${{$item['productInfo']->price}}</td>
                                 <td>
                                     <div class="form-group--number">
-                                        <input id="quantity-item-{{$item['productInfo']->productId}}"
-                                               onclick="SaveListItemCart({{$item['productInfo']->productId}})"
-                                               class="form-control" type="number"
-                                               value="{{$item['quantity']}}">
+                                        <input id="quantity-item-{{$item['productInfo']->productId}}-{{$item['sizeId']}}"
+                                               onclick="SaveListItemCart({{$item['productInfo']->productId}},{{$item['sizeId']}})"
+                                               class="form-control" type="number" value="{{$item['quantity']}}">
+                                        <input id="sizeId" hidden value="{{$item['sizeId']}}">
                                     </div>
                                 </td>
                                 <td>${{$item['price']}}</td>
                                 <td>
                                     <div class="ps-remove"
-                                         onclick="DeleteListItemCart({{$item['productInfo']->productId}})"></div>
+                                         onclick="DeleteListItemCart({{$item['productInfo']->productId}},{{$item['sizeId']}})">
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -64,18 +65,19 @@
                     </div>
                 @else
                     <div class="alert alert-danger" style="margin: 15px" role="alert">
-                        We can't find products matching the selection.
+                        Your cart is empty!
                     </div>
                 @endif
             </div>
         </div>
     </div>
+@endsection
 
-    <!-- Java Script -->
+@section('js')
     <script>
-        function DeleteListItemCart(id) {
+        function DeleteListItemCart(id, $sizeid) {
             $.ajax({
-                url: 'Delete-Item-List-Cart/' + id,
+                url: 'Delete-Item-List-Cart/' + id + '/' + $sizeid,
                 type: 'GET',
 
             }).done(function (response) {
@@ -87,29 +89,22 @@
         function RenderCart(response) {
             $("#list-cart").empty();
             $("#list-cart").html(response);
+
         }
 
-        function SaveListItemCart(id) {
-            $.ajax({
-                url: 'Save-Item-List-Cart/' + id + '/' + $("#quantity-item-" + id).val(),
-                type: 'GET',
+        function SaveListItemCart(id, sizeid) {
+            if($("#quantity-item-" + id + "-" + sizeid).val() < 1){
+                DeleteListItemCart(id,sizeid);
+            }else{
+                $.ajax({
+                    url: 'Save-Item-List-Cart/' + id + '/' + $("#quantity-item-" + id + "-" + sizeid).val() + '/' + sizeid,
+                    type: 'GET',
 
-            }).done(function (response) {
-                RenderCart(response)
-                alertify.success('Update success');
-            });
+                }).done(function (response) {
+                    RenderCart(response)
+                    alertify.success('Update success');
+                });
+            }
         }
     </script>
-    {{--    </script>--}}
-    <!-- JavaScript -->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 @endsection

@@ -31,7 +31,7 @@ class AuthController extends Controller
             if (Session('Cart') != null){
                 return redirect()->route('ViewListCart');
             }
-            return redirect()->route('index')->with('success','Dang nhap thanh cong!');
+            return redirect()->route('index')->with('success','Login success!');
         }
        return redirect()->back()->with('error','Email or password is incorect!');
     }

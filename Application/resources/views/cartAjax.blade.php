@@ -8,7 +8,8 @@
         <div class="ps-cart__content">
             @foreach(Session::get('Cart')->products as $item)
                 <div class="ps-cart-item">
-                    <a class="ps-cart-item__close" data-id="{{$item['productInfo']->productId}}" href="#"></a>
+                    <a class="ps-cart-item__close" data-id="{{$item['productInfo']->productId}}"
+                       data-sizeid="{{$item['sizeId']}}" href="#"></a>
                     <div class="ps-cart-item__thumbnail">
                         <a href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}"></a>
                         <img src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg" alt="">

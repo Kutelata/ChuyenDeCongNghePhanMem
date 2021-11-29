@@ -23,15 +23,16 @@
                 <td>{{$item['productInfo']->price}}</td>
                 <td>
                     <div class="form-group--number">
-                        <input id="quantity-item-{{$item['productInfo']->productId}}"
-                               onclick="SaveListItemCart({{$item['productInfo']->productId}})"
-                               class="form-control"
-                               type="number" value="{{$item['quantity']}}">
+                        <input id="quantity-item-{{$item['productInfo']->productId}}-{{$item['sizeId']}}"
+                               onclick="SaveListItemCart({{$item['productInfo']->productId}},{{$item['sizeId']}})"
+                               class="form-control" type="number" value="{{$item['quantity']}}">
+                        <input id="sizeId" hidden value="{{$item['sizeId']}}">
                     </div>
                 </td>
                 <td>{{$item['price']}}</td>
                 <td>
-                    <div class="ps-remove" onclick="DeleteListItemCart({{$item['productInfo']->productId}})"></div>
+                    <div class="ps-remove"
+                         onclick="DeleteListItemCart({{$item['productInfo']->productId}},{{$item['sizeId']}})"></div>
                 </td>
             </tr>
         @endforeach
@@ -55,7 +56,7 @@
     </div>
 @else
     <div class="alert alert-danger" style="margin: 15px" role="alert">
-        We can't find products matching the selection.
+        Your cart is empty!
     </div>
 @endif
 

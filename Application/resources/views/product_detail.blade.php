@@ -89,15 +89,13 @@
                         <div class="ps-product__block ps-product__size">
                             <h4>CHOOSE SIZE</h4>
                             <select class="ps-select selectpicker">
+                                <option data-id="0">SELECT SIZE</option>
                                 @foreach($psize as $item)
                                     <option value="{{$item->sizeId}}"
                                             data-id="{{$item->sizeId}}">{{$item->number}}</option>
                                 @endforeach
 
                             </select>
-                            <div class="form-group">
-                                <input class="form-control" type="number" value="1">
-                            </div>
                         </div>
                         <div class="ps-product__shopping" id="add-to-cart">
                             <a id="change-size-id" class="ps-btn mb-10" data-id="0"
@@ -171,28 +169,30 @@
 @endsection
 
 @section('js')
-    <!-- Java Script -->
     <script>
         $('select').change(function () {
-            var $id = $(this).find(':selected').data('id');
-            $('#change-size-id').attr('data-id', $id);
+            let id = $(this).find(':selected').data('id');
+            $('#change-size-id').attr('data-id', id);
         });
 
-
         $("#change-size-id").on("click", function () {
-            $.ajax({
-                url: 'Add-Cart/' + $(this).data("productid") + '/' + $(this).data("id"),
-                type: 'GET',
+            if ($(this).attr('data-id') == 0) {
+                alertify.alert("Choose your size!").setHeader("ERROR");
+            } else {
+                $.ajax({
+                    url: 'Add-Cart/' + $(this).data("productid") + '/' + $(this).attr('data-id'),
+                    type: 'GET',
 
-            }).done(function (response) {
-                RenderCart(response)
-                alertify.success('Added product to your cart');
-            });
+                }).done(function (response) {
+                    RenderCart(response)
+                    alertify.success('Added product to your cart');
+                });
+            }
         });
 
         $("#change-item-cart").on("click", ".ps-cart-item__close", function () {
             $.ajax({
-                url: 'Delete-Item-Cart/' + $(this).data("id"),
+                url: 'Delete-Item-Cart/' + $(this).data("id") + '/' + $(this).data("sizeid"),
                 type: 'GET',
 
             }).done(function (response) {
@@ -207,16 +207,4 @@
             $("#total-quantity").text($("#total-quantity-cart").val());
         }
     </script>
-
-    <!-- JavaScript -->
-    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
-    <!-- Default theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/default.min.css"/>
-    <!-- Semantic UI theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/semantic.min.css"/>
-    <!-- Bootstrap theme -->
-    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/themes/bootstrap.min.css"/>
 @endsection
