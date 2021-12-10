@@ -13,7 +13,7 @@
         @foreach(Session::get('Cart')->products as $item)
             <tr>
                 <td>
-                    <a class="ps-product__preview" href="product-detail.html">
+                    <a class="ps-product__preview" href="{{route('product_detail')}}?productId={{$item['productInfo']->productId}}">
                         <img class="mr-15"
                              style="width:100px !important;"
                              src="{{asset('resources/images/shoe/')}}/{{$item['productInfo']->image}}.jpg"
